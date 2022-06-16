@@ -95,6 +95,7 @@
     - [Sorting Object Arrays](#sorting-object-arrays)
   - [Reversing](#reversing)
   - [Max and Min](#max-and-min)
+- [Continue from date](#continue-from-date)
 
 ## Syntax
 
@@ -1308,3 +1309,5 @@ function myArrayMax(arr) {
   return max;
 }
 ```
+
+## Continue from date
