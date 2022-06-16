@@ -112,6 +112,15 @@
 - const
 - using nothing
 
+
+using nothing eg:
+
+```js
+x = 5;
+y = 6;
+z = x + y;
+// 11
+```
 ### When to Use JavaScript var?
 The `var` keyword is used in all JavaScript code from 1995 to 2015.
 The `let` and `const` keywords were added to JavaScript in 2015.
