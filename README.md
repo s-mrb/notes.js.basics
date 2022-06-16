@@ -42,6 +42,46 @@
   - [Template Literals](#template-literals)
     - [Multiline strings](#multiline-strings)
     - [String Interpolation](#string-interpolation)
+- [Numbers](#numbers)
+  - [exponent notation](#exponent-notation)
+  - [Integer Precision](#integer-precision)
+  - [Floating Precision](#floating-precision)
+  - [Numeric Strings](#numeric-strings)
+  - [Special Numbers](#special-numbers)
+    - [Infinity](#infinity)
+    - [NaN](#nan)
+  - [Change base](#change-base)
+  - [Numbers as objects](#numbers-as-objects)
+  - [Methods](#methods)
+    - [toString()](#tostring)
+    - [toFixed()](#tofixed)
+    - [toPrecision()](#toprecision)
+    - [valueOf()](#valueof)
+    - [Converting variables to Numbers](#converting-variables-to-numbers)
+      - [Number](#number)
+      - [parseInt](#parseint)
+      - [parseFloat](#parsefloat)
+- [Arrays](#arrays)
+  - [Arrays as special type of Object](#arrays-as-special-type-of-object)
+  - [Looping through array](#looping-through-array)
+    - [for loop](#for-loop)
+    - [forEach](#foreach)
+  - [Adding new elements](#adding-new-elements)
+  - [Removing an element](#removing-an-element)
+  - [Identifying array](#identifying-array)
+  - [Converting array to string](#converting-array-to-string)
+    - [toString()](#tostring-1)
+    - [join()](#join)
+  - [Merging arrays](#merging-arrays)
+  - [slicing](#slicing)
+    - [slice returns shallow copy??](#slice-returns-shallow-copy)
+  - [Sorting](#sorting)
+    - [Alphabetic Sort](#alphabetic-sort)
+    - [Numeric Sort](#numeric-sort)
+      - [Compare Function](#compare-function)
+    - [Sorting Object Arrays](#sorting-object-arrays)
+  - [Reversing](#reversing)
+  - [Max and Min](#max-and-min)
 
 ## Syntax
 
@@ -280,8 +320,13 @@ let answer3 = 'He is called "Johnny"';
 ```js
 let x = new String("John");
 let y = new String("John");
+let z = "John";
+
 // x===y false
 // x==y  false
+
+// x==z  true
+// x===z false
 ```
 
 ### Length
@@ -484,4 +529,506 @@ let price = 10;
 let VAT = 0.25;
 
 let total = `Total: ${(price * (1 + VAT)).toFixed(2)}`;
+```
+
+## Numbers
+
+- JavaScript Numbers are Always 64-bit Floating Point
+- The maximum number of decimals is 17.
+- Integers are accurate up to 15 digits.
+  
+### exponent notation
+
+```js
+let x = 123e5;    // 12300000
+let y = 123e-5;   // 0.00123
+```
+
+### Integer Precision
+
+
+
+```js
+let y = 9999999999999999;  
+// y will be 10000000000000000
+```
+
+### Floating Precision
+Floating point arithmetic is not always 100% accurate:
+
+```js
+let x = 0.2 + 0.1;
+// 0.2 + 0.1 = 0.30000000000000004
+```
+
+To solve the problem above, it helps to multiply and divide:
+```js
+let x = (0.2 * 10 + 0.1 * 10) / 10;
+```
+
+### Numeric Strings
+
+- JavaScript will try to convert strings to numbers in all numeric operations except for addition
+
+```js
+let x = "100"
+let y = "10"
+let z = 10
+
+x / y  // 10
+x / z  // 10
+
+x * y  // 1000
+
+x - y  // 90
+
+x + y  // 10010
+```
+
+### Special Numbers
+
+#### Infinity
+#### NaN
+- Trying to do arithmetic with a non-numeric string will result in NaN (Not a Number)
+- NaN is a number: `typeof NaN` returns number
+
+### Change base
+
+By default, JavaScript displays numbers as **base 10** decimals.
+But you can use the toString() method to output numbers from **base 2** to **base 36**.
+
+```js
+let myNumber = 32;
+myNumber.toString(32);
+// 10
+myNumber.toString(16);
+// 20
+myNumber.toString(12);
+// 28
+myNumber.toString(10);
+// 32
+```
+
+### Numbers as objects
+
+```js
+let x = 500;
+let y = new Number(500);
+// x==y true
+// x===y false
+```
+
+### Methods
+
+#### toString()
+#### toFixed()
+
+**`toFixed()`** returns a string representation of numObj that does not use exponential notation and has exactly `digits` digits after the decimal place
+
+```js
+let numObj = 12345.6789
+
+numObj.toFixed()       // Returns '12346': note rounding, no fractional part
+numObj.toFixed(1)      // Returns '12345.7': note rounding
+numObj.toFixed(6)      // Returns '12345.678900': note added zeros
+(1.23e+20).toFixed(2)  // Returns '123000000000000000000.00'
+(1.23e-10).toFixed(2)  // Returns '0.00'
+2.34.toFixed(1)        // Returns '2.3'
+2.35.toFixed(1)        // Returns '2.4'. Note it rounds up
+2.55.toFixed(1)        // Returns '2.5'. Note it rounds down - see warning above
+-2.34.toFixed(1)       // Returns -2.3 (due to operator precedence, negative number literals don't return a string...)
+(-2.34).toFixed(1)     // Returns '-2.3'
+```
+
+#### toPrecision()
+
+returns a string representing a Number object in fixed-point or exponential notation rounded to precision significant digits
+
+```js
+let numObj = 5.123456
+
+console.log(numObj.toPrecision())    // logs '5.123456'
+console.log(numObj.toPrecision(5))   // logs '5.1235'
+console.log(numObj.toPrecision(2))   // logs '5.1'
+console.log(numObj.toPrecision(1))   // logs '5'
+
+numObj = 0.000123
+
+console.log(numObj.toPrecision())    // logs '0.000123'
+console.log(numObj.toPrecision(5))   // logs '0.00012300'
+console.log(numObj.toPrecision(2))   // logs '0.00012'
+console.log(numObj.toPrecision(1))   // logs '0.0001'
+
+// note that exponential notation might be returned in some circumstances
+console.log((1234.5).toPrecision(2)) // logs '1.2e+3'
+```
+
+#### valueOf()
+
+In JavaScript, a number can be a primitive value or an object.
+The `valueOf()` method is used internally in JavaScript to convert Number objects to primitive values.
+
+#### Converting variables to Numbers
+
+There are 3 JavaScript methods that can be used to convert variables to numbers:
+
+- The `Number()` method
+- The `parseInt()` method
+- The `parseFloat()` method
+
+These methods are not **number** methods, but **global** JavaScript methods.
+
+##### Number
+
+```js
+Number(true);
+// 1
+Number(false);
+// 0
+Number("10");
+// 10
+Number("  10");
+// 10
+Number("10  ");
+// 10
+Number(" 10  ");
+// 10
+Number("10.33");
+// 10.33
+Number("10,33");
+// NaN
+Number("10 33");
+// NaN
+Number("John");
+// NaN
+Number(new Date("1970-01-01"))
+// 0
+```
+
+> The `Number()` method returns the number of milliseconds since 1.1.1970.
+
+##### parseInt
+
+`parseInt()` parses a string and returns a whole number. Spaces are allowed. Only the first number is returned:
+
+```js
+parseInt("-10");
+// -10
+parseInt("-10.33");
+// -10
+parseInt("10");
+// 10
+parseInt("10.33");
+// 10
+parseInt("10 20 30");
+// 10
+parseInt("10 years");
+// 10
+parseInt("years 10");
+// NaN
+
+```
+
+##### parseFloat
+Spaces are allowed. Only the first number is returned
+
+## Arrays
+
+> It is a common practice to declare arrays with the const keyword.
+
+You can also create an array, and then provide the elements:
+
+```js
+const cars = [];
+cars[0]= "Saab";
+cars[1]= "Volvo";
+cars[2]= "BMW";
+
+```
+Using Constructor
+```js
+const cars = new Array("Saab", "Volvo", "BMW");
+
+```
+
+> **Warning:** `new Array(40)` creates 40 undefined elements whereas `new Array(40,1)` creates 2 defined elements     
+
+### Arrays as special type of Object
+
+- `typeof` array == 'object'
+- unlike objects arrays use numbered indexing to access its "elements"
+- can have different elements of different data types
+
+```js
+myArray[0] = Date.now;
+myArray[1] = myFunction;
+myArray[2] = myCars;
+```
+
+### Looping through array
+
+#### for loop
+
+```js
+const fruits = ["Banana", "Orange", "Apple", "Mango"];
+let fLen = fruits.length;
+
+for (let i = 0; i < fLen; i++) {
+  console.log(fruits[i])
+}
+```
+
+#### forEach
+The `forEach()` method executes a provided function once for each array element.
+
+```js
+const fruits = ["Banana", "Orange", "Apple", "Mango"];
+let fLen = fruits.length;
+
+for (let i = 0; i < fLen; i++) {
+  console.log(fruits[i])
+}
+```
+
+### Adding new elements
+
+- `push` add at end
+- `indexing` by length add at end
+- `unshift` add at start and return new array length
+- `splice` method changes the contents of an array by removing or replacing existing elements and/or adding new elements in place
+
+```js
+const fruits = ["Banana", "Orange", "Apple"];
+fruits.push("Lemon");
+
+fruits[fruits.length] = "Heroin";
+```
+
+> **Warning:** Adding elements with high indexes can create undefined "holes" in an array:
+
+```js
+const fruits = ["Banana", "Orange", "Apple"];
+fruits[6] = "Lemon";  // Creates undefined "holes" in fruits
+```
+
+**splice:**<br>
+
+
+```js
+splice(start)
+splice(start, deleteCount)
+splice(start, deleteCount, item1)
+splice(start, deleteCount, item1, item2, itemN)
+```
+
+```js
+const fruits = ["Banana", "Orange", "Apple", "Mango"]
+fruits.splice(2, 0, "Lemon", "Kiwi")
+console.log(fruits)
+
+// The first parameter (2) defines the position where new elements should be added (spliced in).
+// The second parameter (0) defines how many elements should be removed.
+// The rest of the parameters ("Lemon" , "Kiwi") define the new elements to be added.
+```
+
+### Removing an element
+
+- The `pop()` method removes the last element and returns it
+- The `shift()` method removes the first array element and "shifts" all other elements to a lower index.
+- Using `delete` leaves undefined holes in the array.
+- With clever parameter setting, you can use `splice()` to remove elements without leaving "holes" in the array
+  
+```js
+const fruits = ["Banana", "Orange", "Apple", "Mango"];
+fruits.pop()
+// ["Banana", "Orange", "Apple"]
+
+fruits.shift();
+// [ 'Orange', 'Apple']
+
+delete fruits[0];
+// [ <1 empty item>, 'Apple']
+
+```
+
+### Identifying array
+
+> `typeof` won't tell if variable is array or not, it will return *object* if it were array.
+
+```js
+Array.isArray(array_name);
+// OR
+array_name instanceof Array;
+```
+
+### Converting array to string
+
+#### toString()
+- converts an array to a string of (comma separated) array values.
+- you can't specify the separator
+  
+#### join()
+- converts an array to a string of (separator separated) array values.
+- you can specify the separator, default is comma.
+
+### Merging arrays
+
+- The `concat()` method creates a new array by merging (concatenating) existing arrays
+
+
+```js
+const arr1 = ["A", "B"];
+const arr2 = ["C"];
+const arr3 = ["D", "E"];
+const res = arr1.concat(arr2, arr3,"haha");
+
+console.log(res)
+// [ 'A', 'B', 'C', 'D', 'E', 'haha' ]
+```
+
+### slicing
+
+- The `slice()` method returns a shallow copy of a portion of an array into a new array object selected from start to end (end not included) where start and end represent the index of items in that array. 
+- The original array will not be modified.
+
+```js
+slice()
+slice(start)
+slice(start, end)
+```
+
+```js
+const fruits = ["Banana", "Orange", "Lemon", "Apple", "Mango"];
+const citrus = fruits.slice(1);
+
+console.log(citrus)
+// [ 'Orange', 'Lemon', 'Apple', 'Mango' ]
+console.log(fruits)
+// [ 'Banana', 'Orange', 'Lemon', 'Apple', 'M
+```
+> NOTE: The `slice()` method creates a new array.
+> The `slice()` method does not remove any elements from the source array.
+
+#### slice returns shallow copy??
+
+```js
+var animals = ['ant', 'bison', 'camel', 'duck', 'elephant'];
+
+var t = animals.slice(2,4);
+console.log(t);
+
+t[0] = 'aaa';
+console.log(t);
+console.log(animals);
+```
+
+but, If slice method returns shallow array, the animals array should be changed with 
+`['ant', 'bison', 'aaa', 'duck', 'elephant']`.
+
+**Why is it shallow copy?**
+
+
+`slice` does not alter the original array. It returns a shallow copy of elements from the original array.
+
+Elements of the original array are copied into the returned array as follows:
+
+For object references (and not the actual object), slice copies object references into the new array. Both the original and new array refer to the same object. If a referenced object changes, the changes are visible to both the new and original arrays.
+
+For strings, numbers and booleans (not String, Number and Boolean objects), slice copies the values into the new array. Changes to the string, number or boolean in one array do not affect the other array. If a new element is added to either array, the other array is not affected.(source)
+
+In your case the the array consists of strings which on slice would return new strings copied to the array thus is a shallow copy. In order to avoid this use the object form of array.
+
+### Sorting
+
+#### Alphabetic Sort
+- The `sort()` method sorts an array alphabetically:
+
+```js
+const fruits = ["Banana", "Orange", "Apple", "Mango"]
+fruits.sort()
+console.log(fruits)
+// [ 'Apple', 'Banana', 'Mango', 'Orange' ]
+
+```
+
+#### Numeric Sort
+- By default, the `sort()` function sorts values as `strings`.
+- if numbers are sorted as strings, "25" is bigger than "100", because "2" is bigger than "1".
+- You can fix this by providing a compare function.
+
+```js
+const points = [40, 100, 1, 5, 25, 10];
+
+// ascending
+points.sort(function(a, b){return a - b});
+// [ 1, 5, 10, 25, 40, 100 ]
+
+// descending
+points.sort(function(a, b){return b - a});
+// [ 100, 40, 25, 10, 5, 1 ]
+```
+
+##### Compare Function
+
+The purpose of the compare function is to define an alternative sort order.
+The compare function should return a negative, zero, or positive value, depending on the arguments:
+
+```js
+function(a, b){return a - b}
+```
+
+When the sort() function compares two values, it sends the values to the compare function, and sorts the values according to the returned (negative, zero, positive) value.
+
+- If the result is negative `a` is sorted before `b`.
+- If the result is positive `b` is sorted before `a`.
+- If the result is 0 no changes are done with the sort order of the two values.
+
+#### Sorting Object Arrays
+
+```js
+const cars = [
+  {type:"Volvo", year:2016},
+  {type:"Saab", year:2001},
+  {type:"BMW", year:2010}
+]
+
+```
+
+**On basis of number property:**<br>
+```js
+cars.sort(function(a, b){return a.year - b.year});
+```
+
+**On basis of string property:**<br>
+```js
+cars.sort(function(a, b){
+  let x = a.type.toLowerCase();
+  let y = b.type.toLowerCase();
+  if (x < y) {return -1;}
+  if (x > y) {return 1;}
+  return 0;
+});
+```
+
+
+
+### Reversing
+- The `reverse()` method reverses the elements in an array.
+
+### Max and Min
+- `Math.max.apply(null, [1, 2, 3])` is equivalent to `Math.max(1, 2, 3)`
+- `Math.min.apply(null, [1, 2, 3])` is equivalent to `Math.min(1, 2, 3)`
+- fastest solution is below method
+
+```js
+function myArrayMax(arr) {
+  let len = arr.length;
+  let max = -Infinity;
+  while (len--) {
+    if (arr[len] > max) {
+      max = arr[len];
+    }
+  }
+  return max;
+}
 ```
