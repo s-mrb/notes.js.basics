@@ -39,7 +39,6 @@
     - [`includes(searchvalue, start)`](#includessearchvalue-start)
     - [`startsWith(searchvalue, start)`](#startswithsearchvalue-start)
     - [`endsWith(searchvalue, length)`](#endswithsearchvalue-length)
-    - [indexOf](#indexof)
   - [Template Literals](#template-literals)
     - [Multiline strings](#multiline-strings)
     - [String Interpolation](#string-interpolation)
@@ -413,6 +412,7 @@ There are 3 methods for extracting string characters:
 ### String Search
 
 JavaScript Search Methods
+
 #### `indexOf(str, start_position)`
 
 - returns -1 if string not found
@@ -461,8 +461,6 @@ text.startsWith("world", 6)
 
 #### `endsWith(searchvalue, length)`
 
-#### indexOf
-Both indexOf(), and lastIndexOf() return -1 if the text is not found
 
 ### Template Literals
 
