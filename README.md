@@ -66,6 +66,19 @@
   - [Looping through array](#looping-through-array)
     - [for loop](#for-loop)
     - [forEach](#foreach)
+    - [map](#map)
+    - [filter](#filter)
+    - [reduce](#reduce)
+    - [every](#every)
+    - [some](#some)
+    - [find](#find)
+    - [findIndex](#findindex)
+    - [Array.from](#arrayfrom)
+    - [keys](#keys)
+    - [entries](#entries)
+    - [includes](#includes)
+    - [indexOf](#indexof)
+    - [lastIndexOf](#lastindexof)
   - [Adding new elements](#adding-new-elements)
   - [Removing an element](#removing-an-element)
   - [Identifying array](#identifying-array)
@@ -782,6 +795,17 @@ for (let i = 0; i < fLen; i++) {
 The `forEach()` method executes a provided function once for each array element.
 
 ```js
+// Arrow function
+forEach((element) => { /* ... */ })
+forEach((element, index) => { /* ... */ })
+forEach((element, index, array) => { /* ... */ })
+
+// Callback function
+forEach(callbackFn)
+forEach(callbackFn, thisArg)
+```
+
+```js
 const fruits = ["Banana", "Orange", "Apple", "Mango"];
 let fLen = fruits.length;
 
@@ -789,6 +813,249 @@ for (let i = 0; i < fLen; i++) {
   console.log(fruits[i])
 }
 ```
+
+#### map
+- The `map()` method creates a new array by performing a function on each array element.
+- The `map()` method does not execute the function for array elements without values.
+- The `map()` method does not change the original array.
+
+```js
+// Arrow function
+map((element) => { /* ... */ })
+map((element, index) => { /* ... */ })
+map((element, index, array) => { /* ... */ })
+
+// Callback function
+map(callbackFn)
+map(callbackFn, thisArg)
+```
+
+This example multiplies each array value by 2:
+
+```js
+const numbers1 = [45, 4, 9, 16, 25];
+const numbers2 = numbers1.map(myFunction);
+
+function myFunction(value, index, array) {
+  return value * 2;
+}
+```
+
+#### filter
+- The `filter()` method creates a new array with array elements that passes a test.
+
+```js
+// Arrow function
+filter((element) => { /* ... */ } )
+filter((element, index) => { /* ... */ } )
+filter((element, index, array) => { /* ... */ } )
+
+// Callback function
+filter(callbackFn)
+filter(callbackFn, thisArg)
+```
+
+This example creates a new array from elements with a value larger than 18:
+
+```js
+const numbers = [45, 4, 9, 16, 25];
+const over18 = numbers.filter(myFunction);
+
+function myFunction(value, index, array) {
+  return value > 18;
+}
+```
+
+#### reduce
+
+- The `reduce()` method runs a function on each array element to produce (reduce it to) a single value.
+- The `reduce()` method works from left-to-right in the array. See also `reduceRight()`.
+- The `reduce()` method does not reduce the original array.
+
+
+```js
+// Arrow function
+reduce((previousValue, currentValue) => { /* ... */ } )
+reduce((previousValue, currentValue, currentIndex) => { /* ... */ } )
+reduce((previousValue, currentValue, currentIndex, array) => { /* ... */ } )
+
+reduce((previousValue, currentValue) => { /* ... */ } , initialValue)
+reduce((previousValue, currentValue, currentIndex) => { /* ... */ } , initialValue)
+reduce((previousValue, currentValue, currentIndex, array) => { /* ... */ }, initialValue)
+```
+
+The function is called with the following arguments:
+
+- `previousValue:` the value resulting from the previous call to `callbackFn`. On first call, `initialValue` if specified, otherwise the value of `array[0]`.
+- `currentValue`: the value of the current element. On first call, the value of `array[0]` if an `initialValue` was specified, otherwise the value of `array[1]`.
+- `currentIndex`: the index position of `currentValue` in the array. On first call, 0 if `initialValue` was specified, otherwise 1.
+- array: the array to traverse.
+- `initialValue` \[Optional\]
+A value to which previousValue is initialized the first time the callback is called. If initialValue is specified, that also causes currentValue to be initialized to the first value in the array. If initialValue is not specified, previousValue is initialized to the first value in the array, and currentValue is initialized to the second value in the array.
+
+```js
+const numbers = [45, 4, 9, 16, 25];
+let sum = numbers.reduce(myFunction);
+
+function myFunction(total, value, index, array) {
+  return total + value;
+}
+```
+
+#### every
+- The `every()` method tests whether all elements in the array pass the test implemented by the provided function. 
+- It returns a Boolean value.
+
+```js
+// Arrow function
+every((element) => { /* ... */ } )
+every((element, index) => { /* ... */ } )
+every((element, index, array) => { /* ... */ } )
+
+// Callback function
+every(callbackFn)
+every(callbackFn, thisArg)
+```
+
+This example check if all array values are larger than 18:
+
+```js
+const numbers = [45, 4, 9, 16, 25];
+let allOver18 = numbers.every(myFunction);
+
+function myFunction(value, index, array) {
+  return value > 18;
+}
+```
+
+#### some
+- The `some()` method tests whether at least one element in the array passes the test implemented by the provided function.
+
+```js
+// Arrow function
+some((element) => { /* ... */ } )
+some((element, index) => { /* ... */ } )
+some((element, index, array) => { /* ... */ } )
+
+// Callback function
+some(callbackFn)
+some(callbackFn, thisArg)
+```
+#### find
+- The `find()` method returns the first element (**value**) in the provided array that satisfies the provided testing function. 
+- If no values satisfy the testing function, `undefined` is returned.
+
+```js
+// Arrow function
+find((element) => { /* ... */ } )
+find((element, index) => { /* ... */ } )
+find((element, index, array) => { /* ... */ } )
+
+// Callback function
+find(callbackFn)
+find(callbackFn, thisArg)
+```
+
+This example finds (returns the value of) the first element that is larger than 18:
+
+```js
+const numbers = [4, 9, 16, 25, 29];
+let first = numbers.find(myFunction);
+
+function myFunction(value, index, array) {
+  return value > 18;
+}
+```
+
+#### findIndex
+- The `findIndex()` method returns the **index** of the first element in the array that satisfies the provided testing function. 
+- Otherwise, it returns -1, indicating that no element passed the test.
+
+```js
+// Arrow function
+findIndex((element) => { /* ... */ } )
+findIndex((element, index) => { /* ... */ } )
+findIndex((element, index, array) => { /* ... */ } )
+
+// Callback function
+findIndex(callbackFn)
+findIndex(callbackFn, thisArg)
+```
+
+#### Array.from
+
+- The `Array.from()` static method creates a new, shallow-copied Array instance from an array-like or iterable object.
+
+```js
+// Arrow function
+Array.from(arrayLike, (element) => { /* ... */ } )
+Array.from(arrayLike, (element, index) => { /* ... */ } )
+
+// Mapping function
+Array.from(arrayLike, mapFn)
+Array.from(arrayLike, mapFn, thisArg)
+```
+
+> `mapFn` \[Optional\]: Map function to call on every element of the array.
+
+```js
+console.log(Array.from('foo'));
+// expected output: Array ["f", "o", "o"]
+
+console.log(Array.from([1, 2, 3], x => x + x));
+// expected output: Array [2, 4, 6]
+```
+
+#### keys
+The `keys()` method returns a new **Array Iterator** object that contains the keys for each index in the array.
+
+```js
+const arr = ['a', , 'c'];
+const sparseKeys = Object.keys(arr);
+const denseKeys = [...arr.keys()];
+console.log(sparseKeys); // ['0', '2']
+console.log(denseKeys);  // [0, 1, 2]
+```
+
+#### entries
+The `entries()` method returns a new **Array Iterator** object that contains the key/value pairs for each index in the array.
+
+```js
+const array1 = ['a', 'b', 'c'];
+
+const iterator1 = array1.entries();
+
+console.log(iterator1.next().value);
+// expected output: Array [0, "a"]
+
+console.log(iterator1.next().value);
+// expected output: Array [1, "b"]
+```
+
+```js
+const a = ["a", "b", "c"];
+
+for (const [index, element] of a.entries()) {
+  console.log(index, element);
+}
+
+// 0 'a'
+// 1 'b'
+// 2 'c'
+```
+
+#### includes
+- allows us to check if an element is present in an array (including NaN, unlike indexOf).
+
+```js
+const fruits = ["Banana", "Orange", "Apple", "Mango"];
+
+fruits.includes("Mango"); // is true
+```
+
+#### indexOf
+#### lastIndexOf
+
 
 ### Adding new elements
 
