@@ -95,7 +95,29 @@
     - [Sorting Object Arrays](#sorting-object-arrays)
   - [Reversing](#reversing)
   - [Max and Min](#max-and-min)
-- [Continue from date](#continue-from-date)
+- [Dates](#dates)
+  - [Getters and Setters left](#getters-and-setters-left)
+- [Math](#math)
+  - [Random](#random)
+  - [Some Methods](#some-methods)
+- [Boolean](#boolean)
+- [Ternary](#ternary)
+- [Switch](#switch)
+  - [Strict Comparison](#strict-comparison)
+- [Loops](#loops)
+  - [for in](#for-in)
+  - [for of](#for-of)
+  - [while](#while)
+  - [do while](#do-while)
+  - [Scope](#scope)
+- [label](#label)
+  - [continue](#continue)
+  - [break](#break)
+- [Iterable](#iterable)
+- [Sets](#sets)
+- [Maps](#maps)
+- [Maps vs Objects](#maps-vs-objects)
+- [Continue from Sets](#continue-from-sets)
 
 ## Syntax
 
@@ -1310,4 +1332,311 @@ function myArrayMax(arr) {
 }
 ```
 
-## Continue from date
+## Dates
+
+```js
+new Date()
+new Date(year, month, day, hours, minutes, seconds, milliseconds)
+new Date(milliseconds)
+new Date(date string)
+```
+
+- JavaScript stores dates as number of milliseconds since January 01, 1970, 00:00:00 UTC (Universal Time Coordinated).
+- JavaScript counts months from 0 to 11
+- Specifying a month/day higher than max possible, will not result in an error but add the overflow to the next year/month:
+- You cannot omit month. If you supply only one parameter it will be treated as milliseconds.
+- One and two digit years will be interpreted as 19xx:
+- `new Date(milliseconds)` creates a new date object as zero time plus milliseconds
+- `Date.parse()` returns the number of milliseconds between the date and January 1, 1970
+
+
+```js
+const d = new Date(9, 11, 24);
+// 1909 ...
+
+const d = new Date("October 13, 2014 11:13:00");
+// date object
+
+```
+
+> **NOTE:** Always view warning or search for them to make your dates correct on each platform/browsers.
+
+### Getters and Setters left
+
+## Math
+
+- Unlike other objects, the Math object has no constructor.
+- The Math object is static.
+- All methods and properties can be used without creating a Math object first.
+
+### Random
+
+> `Math.random()` always returns a number lower than 1.
+
+```js
+// Returns a random integer from 0 to 9:
+Math.floor(Math.random() * 10);
+```
+
+**A Proper Random Function:**<br>
+```js
+function getRndInteger(min, max) {
+  return Math.floor(Math.random() * (max - min) ) + min;
+}
+```
+
+### Some Methods
+
+- `Math.trunc(x)` Returns the integer part of x
+- `Math.random()` returns a random number between 0 (inclusive), and 1 (exclusive)
+
+## Boolean
+
+**Everything With a "Value" is True: Boolean(x)=true**
+```js
+100
+
+3.14
+
+-15
+
+"Hello"
+
+"false"
+
+7 + 1 + 3.14
+```
+
+**Everything Without a "Value" is False: Boolean(x)=false**
+
+```js
+0
+-0
+""
+undefined
+null
+NaN
+```
+
+## Ternary
+
+```js
+variablename = (condition) ? value1:value2 
+```
+
+## Switch
+
+- The `default` case does not have to be the last case in a switch block
+
+```js
+switch(expression) {
+  case x:
+    // code block
+    break;
+  case y:
+    // code block
+    break;
+  default:
+    // code block
+}
+```
+
+### Strict Comparison
+
+- Switch cases use **strict** comparison (===)  .
+
+
+## Loops
+
+### for in
+
+```js
+for (key in object) {
+  // code block to be executed
+}
+```
+
+```js
+for (variable in array) {
+  code
+}
+```
+
+### for of
+
+- The JavaScript `for of` statement loops through the values of an iterable object.
+- It lets you loop over iterable data structures such as Arrays, Strings, Maps, NodeLists, and more:
+
+```js
+for (variable of iterable) {
+  // code block to be executed
+}
+```
+
+```js
+const cars = ["BMW", "Volvo", "Mini"];
+
+let text = "";
+for (let x of cars) {
+  text += x;
+}
+```
+
+### while
+
+```js
+while (condition) {
+  // code block to be executed
+}
+```
+
+### do while
+
+```js
+do {
+  // code block to be executed
+}
+while (condition);
+```
+
+### Scope
+
+```js
+var i = 5;
+
+for (var i = 0; i < 10; i++) {
+  // some code
+}
+
+// Here i is 10
+```
+
+```js
+let i = 5;
+
+for (let i = 0; i < 10; i++) {
+  // some code
+}
+
+// Here i is 5
+```
+
+## label
+The labeled statement can be used with `break` or `continue` statements. It is prefixing a statement with an identifier which you can refer to.
+
+### continue
+```js
+let i, j;
+
+loop1:
+for (i = 0; i < 3; i++) {      //The first for statement is labeled "loop1"
+   loop2:
+   for (j = 0; j < 3; j++) {   //The second for statement is labeled "loop2"
+      if (i === 1 && j === 1) {
+         continue loop1;
+      }
+      console.log('i = ' + i + ', j = ' + j);
+   }
+}
+
+// Output is:
+//   "i = 0, j = 0"
+//   "i = 0, j = 1"
+//   "i = 0, j = 2"
+//   "i = 1, j = 0"
+//   "i = 2, j = 0"
+//   "i = 2, j = 1"
+//   "i = 2, j = 2"
+// Notice how it skips both "i = 1, j = 1" and "i = 1, j = 2"
+```
+
+### break
+
+```js
+let i, j;
+
+loop1:
+for (i = 0; i < 3; i++) {      //The first for statement is labeled "loop1"
+   loop2:
+   for (j = 0; j < 3; j++) {   //The second for statement is labeled "loop2"
+      if (i === 1 && j === 1) {
+         break loop1;
+      }
+      console.log('i = ' + i + ', j = ' + j);
+   }
+}
+
+// Output is:
+//   "i = 0, j = 0"
+//   "i = 0, j = 1"
+//   "i = 0, j = 2"
+//   "i = 1, j = 0"
+// Notice the difference with the previous continue example
+```
+
+## Iterable
+
+- Iterables are iterable objects (like Arrays).
+- Iterables can be accessed with simple and efficient code.
+- Iterables can be iterated over with `for..of` loops
+
+## Sets
+
+- A JavaScript Set is a collection of unique values.
+- Each value can only occur once in a Set.
+- If you add equal elements, only the first will be saved.
+
+```js
+// Create a Set
+const letters1 = new Set(["a","b","c"]);
+
+// Create a Set
+const letters2 = new Set();
+
+// Add Values to the Set
+letters2.add("a");
+letters2.add("b");
+letters2.add("c");
+```
+
+## Maps
+
+- A Map holds key-value pairs where the keys can be any datatype.
+- A Map remembers the original insertion order of the keys.
+- The `map_name.set(key, value)` method can also be used to change existing Map values
+- The `map_name.get(key)` method gets the value of a key in a Map
+- `map_name.size` property returns the number of elements in a Map
+- `map_name.delete(key)`
+- `map_name.has(key)` method returns true if a key exists in a Map
+
+
+```js
+// Create a Map
+const fruits = new Map([
+  ["apples", 500],
+  ["bananas", 300],
+  ["oranges", 200]
+]);
+
+
+// Create a Map
+const fruits = new Map();
+
+// Set Map Values
+fruits.set("apples", 500);
+fruits.set("bananas", 300);
+fruits.set("oranges", 200);
+```
+
+
+## Maps vs Objects
+
+|          |     **Object**     |  **Map** |
+|----------|:-------------:|------:|
+| **Iterable** |  Not directly iterable | 	Directly iterable |
+| **Size** |    Do not have a size property   |   Have a size property |
+| **Key Types** | Keys must be Strings (or Symbols) |    	Keys can be any datatype |
+| **Key Order** | Keys are not well ordered | Keys are ordered by insertion |
+| **Defaults** | Have default keys | 	Do not have default keys |
+
+## Continue from Sets
