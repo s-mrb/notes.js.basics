@@ -1,151 +1,163 @@
-- [Syntax](#syntax)
-- [Variables](#variables)
-  - [Ways to declare variable](#ways-to-declare-variable)
-  - [When to Use JavaScript var?](#when-to-use-javascript-var)
-  - [One Statement, Many Variables](#one-statement-many-variables)
-  - [Remember](#remember)
-- [Order of Evaluation](#order-of-evaluation)
-- [let](#let)
-  - [Block Scope](#block-scope)
-  - [Hoisting](#hoisting)
-- [const](#const)
-  - [Constant Objects and Arrays](#constant-objects-and-arrays)
-- [Common Operators](#common-operators)
-- [Functions](#functions)
-- [Objects](#objects)
-  - [What is this?](#what-is-this)
-  - [Don't use object where not needed](#dont-use-object-where-not-needed)
-  - [Comparing Objects](#comparing-objects)
-- [Strings](#strings)
-  - [Length](#length)
-  - [Extracting string parts](#extracting-string-parts)
-    - [slice()](#slice)
-    - [substring()](#substring)
-    - [substr()](#substr)
-  - [Replacing string contents](#replacing-string-contents)
-    - [replace()](#replace)
-  - [Case conversion](#case-conversion)
-  - [Concatenation](#concatenation)
-  - [Trimming](#trimming)
-  - [Padding](#padding)
-  - [Extracting chars](#extracting-chars)
-  - [String to Array](#string-to-array)
-    - [split](#split)
-  - [String Search](#string-search)
-    - [`indexOf(str, start_position)`](#indexofstr-start_position)
-    - [`lastIndexOf(str, start_position)`](#lastindexofstr-start_position)
-    - [`search(str|regex)`](#searchstrregex)
-    - [`match(regex)`](#matchregex)
-    - [`includes(searchvalue, start)`](#includessearchvalue-start)
-    - [`startsWith(searchvalue, start)`](#startswithsearchvalue-start)
-    - [`endsWith(searchvalue, length)`](#endswithsearchvalue-length)
-  - [Template Literals](#template-literals)
-    - [Multiline strings](#multiline-strings)
-    - [String Interpolation](#string-interpolation)
-- [Numbers](#numbers)
-  - [exponent notation](#exponent-notation)
-  - [Integer Precision](#integer-precision)
-  - [Floating Precision](#floating-precision)
-  - [Numeric Strings](#numeric-strings)
-  - [Special Numbers](#special-numbers)
-    - [Infinity](#infinity)
-    - [NaN](#nan)
-  - [Change base](#change-base)
-  - [Numbers as objects](#numbers-as-objects)
-  - [Methods](#methods)
-    - [toString()](#tostring)
-    - [toFixed()](#tofixed)
-    - [toPrecision()](#toprecision)
-    - [valueOf()](#valueof)
-    - [Converting variables to Numbers](#converting-variables-to-numbers)
-      - [Number](#number)
-      - [parseInt](#parseint)
-      - [parseFloat](#parsefloat)
-- [Arrays](#arrays)
-  - [Arrays as special type of Object](#arrays-as-special-type-of-object)
-  - [Looping through array](#looping-through-array)
-    - [for loop](#for-loop)
-    - [forEach](#foreach)
-    - [map](#map)
-    - [filter](#filter)
-    - [reduce](#reduce)
-    - [every](#every)
-    - [some](#some)
-    - [find](#find)
-    - [findIndex](#findindex)
-    - [Array.from](#arrayfrom)
-    - [keys](#keys)
-    - [entries](#entries)
-    - [includes](#includes)
-    - [indexOf](#indexof)
-    - [lastIndexOf](#lastindexof)
-  - [Adding new elements](#adding-new-elements)
-  - [Removing an element](#removing-an-element)
-  - [Identifying array](#identifying-array)
-  - [Converting array to string](#converting-array-to-string)
-    - [toString()](#tostring-1)
-    - [join()](#join)
-  - [Merging arrays](#merging-arrays)
-  - [slicing](#slicing)
-    - [slice returns shallow copy??](#slice-returns-shallow-copy)
-  - [Sorting](#sorting)
-    - [Alphabetic Sort](#alphabetic-sort)
-    - [Numeric Sort](#numeric-sort)
-      - [Compare Function](#compare-function)
-    - [Sorting Object Arrays](#sorting-object-arrays)
-  - [Reversing](#reversing)
-  - [Max and Min](#max-and-min)
-- [Dates](#dates)
-  - [Getters and Setters left](#getters-and-setters-left)
-- [Math](#math)
-  - [Random](#random)
-  - [Some Methods](#some-methods)
-- [Boolean](#boolean)
-- [Ternary](#ternary)
-- [Switch](#switch)
-  - [Strict Comparison](#strict-comparison)
-- [Loops](#loops)
-  - [for in](#for-in)
-  - [for of](#for-of)
-  - [while](#while)
-  - [do while](#do-while)
-  - [Scope](#scope)
-- [label](#label)
-  - [continue](#continue)
-  - [break](#break)
-- [Iterable](#iterable)
-- [Sets](#sets)
-- [Maps](#maps)
-- [Maps vs Objects](#maps-vs-objects)
-- [Data Types](#data-types)
-  - [null vs undefined](#null-vs-undefined)
-- [JS Type Conversion](#js-type-conversion)
-  - [Strings to Numbers](#strings-to-numbers)
-  - [Numbers to Strings](#numbers-to-strings)
-  - [Dates to Numbers](#dates-to-numbers)
-  - [Numbers to Dates](#numbers-to-dates)
-  - [Booleans to Numbers](#booleans-to-numbers)
-  - [Numbers to Booleans](#numbers-to-booleans)
-- [Bitwise](#bitwise)
-- [RegEx](#regex)
-  - [Patterns](#patterns)
-    - [Brackets](#brackets)
-    - [Metacharacters](#metacharacters)
-    - [Quantifier](#quantifier)
-  - [Modifiers](#modifiers)
-  - [Using the RegExp Object](#using-the-regexp-object)
-    - [test](#test)
-    - [exec()](#exec)
-- [Scoping](#scoping)
-- [Hoisting](#hoisting-1)
-- [Strict Mode](#strict-mode)
-- [Continue from this](#continue-from-this)
+# Index
 
+- [Index](#index)
+- [Content](#content)
+  - [Syntax](#syntax)
+  - [Variables](#variables)
+    - [Ways to declare variable](#ways-to-declare-variable)
+    - [When to Use JavaScript var?](#when-to-use-javascript-var)
+    - [One Statement, Many Variables](#one-statement-many-variables)
+    - [Remember](#remember)
+  - [Order of Evaluation](#order-of-evaluation)
+  - [let](#let)
+    - [Block Scope](#block-scope)
+    - [Hoisting](#hoisting)
+  - [const](#const)
+    - [Constant Objects and Arrays](#constant-objects-and-arrays)
+  - [Common Operators](#common-operators)
+  - [Functions](#functions)
+  - [Objects](#objects)
+    - [What is this?](#what-is-this)
+    - [Don't use object where not needed](#dont-use-object-where-not-needed)
+    - [Comparing Objects](#comparing-objects)
+  - [Strings](#strings)
+    - [Length](#length)
+    - [Extracting string parts](#extracting-string-parts)
+      - [slice()](#slice)
+      - [substring()](#substring)
+      - [substr()](#substr)
+    - [Replacing string contents](#replacing-string-contents)
+      - [replace()](#replace)
+    - [Case conversion](#case-conversion)
+    - [Concatenation](#concatenation)
+    - [Trimming](#trimming)
+    - [Padding](#padding)
+    - [Extracting chars](#extracting-chars)
+    - [String to Array](#string-to-array)
+      - [split](#split)
+    - [String Search](#string-search)
+      - [`indexOf(str, start_position)`](#indexofstr-start_position)
+      - [`lastIndexOf(str, start_position)`](#lastindexofstr-start_position)
+      - [`search(str|regex)`](#searchstrregex)
+      - [`match(regex)`](#matchregex)
+      - [`includes(searchvalue, start)`](#includessearchvalue-start)
+      - [`startsWith(searchvalue, start)`](#startswithsearchvalue-start)
+      - [`endsWith(searchvalue, length)`](#endswithsearchvalue-length)
+    - [Template Literals](#template-literals)
+      - [Multiline strings](#multiline-strings)
+      - [String Interpolation](#string-interpolation)
+  - [Numbers](#numbers)
+    - [exponent notation](#exponent-notation)
+    - [Integer Precision](#integer-precision)
+    - [Floating Precision](#floating-precision)
+    - [Numeric Strings](#numeric-strings)
+    - [Special Numbers](#special-numbers)
+      - [Infinity](#infinity)
+      - [NaN](#nan)
+    - [Change base](#change-base)
+    - [Numbers as objects](#numbers-as-objects)
+    - [Methods](#methods)
+      - [toString()](#tostring)
+      - [toFixed()](#tofixed)
+      - [toPrecision()](#toprecision)
+      - [valueOf()](#valueof)
+      - [Converting variables to Numbers](#converting-variables-to-numbers)
+        - [Number](#number)
+        - [parseInt](#parseint)
+        - [parseFloat](#parsefloat)
+  - [Arrays](#arrays)
+    - [Arrays as special type of Object](#arrays-as-special-type-of-object)
+    - [Looping through array](#looping-through-array)
+      - [for loop](#for-loop)
+      - [forEach](#foreach)
+      - [map](#map)
+      - [filter](#filter)
+      - [reduce](#reduce)
+      - [every](#every)
+      - [some](#some)
+      - [find](#find)
+      - [findIndex](#findindex)
+      - [Array.from](#arrayfrom)
+      - [keys](#keys)
+      - [entries](#entries)
+      - [includes](#includes)
+      - [indexOf](#indexof)
+      - [lastIndexOf](#lastindexof)
+    - [Adding new elements](#adding-new-elements)
+    - [Removing an element](#removing-an-element)
+    - [Identifying array](#identifying-array)
+    - [Converting array to string](#converting-array-to-string)
+      - [toString()](#tostring-1)
+      - [join()](#join)
+    - [Merging arrays](#merging-arrays)
+    - [slicing](#slicing)
+      - [slice returns shallow copy??](#slice-returns-shallow-copy)
+    - [Sorting](#sorting)
+      - [Alphabetic Sort](#alphabetic-sort)
+      - [Numeric Sort](#numeric-sort)
+        - [Compare Function](#compare-function)
+      - [Sorting Object Arrays](#sorting-object-arrays)
+    - [Reversing](#reversing)
+    - [Max and Min](#max-and-min)
+  - [Dates](#dates)
+    - [Getters and Setters left](#getters-and-setters-left)
+  - [Math](#math)
+    - [Random](#random)
+    - [Some Methods](#some-methods)
+  - [Boolean](#boolean)
+  - [Ternary](#ternary)
+  - [Switch](#switch)
+    - [Strict Comparison](#strict-comparison)
+  - [Loops](#loops)
+    - [for in](#for-in)
+    - [for of](#for-of)
+    - [while](#while)
+    - [do while](#do-while)
+    - [Scope](#scope)
+  - [label](#label)
+    - [continue](#continue)
+    - [break](#break)
+  - [Iterable](#iterable)
+  - [Sets](#sets)
+  - [Maps](#maps)
+  - [Maps vs Objects](#maps-vs-objects)
+  - [Data Types](#data-types)
+    - [null vs undefined](#null-vs-undefined)
+  - [JS Type Conversion](#js-type-conversion)
+    - [Strings to Numbers](#strings-to-numbers)
+    - [Numbers to Strings](#numbers-to-strings)
+    - [Dates to Numbers](#dates-to-numbers)
+    - [Numbers to Dates](#numbers-to-dates)
+    - [Booleans to Numbers](#booleans-to-numbers)
+    - [Numbers to Booleans](#numbers-to-booleans)
+  - [Bitwise](#bitwise)
+  - [RegEx](#regex)
+    - [Patterns](#patterns)
+      - [Brackets](#brackets)
+      - [Metacharacters](#metacharacters)
+      - [Quantifier](#quantifier)
+    - [Modifiers](#modifiers)
+    - [Using the RegExp Object](#using-the-regexp-object)
+      - [test](#test)
+      - [exec()](#exec)
+  - [Scoping](#scoping)
+  - [Hoisting](#hoisting-1)
+  - [Strict Mode](#strict-mode)
+  - [Continue from this](#continue-from-this)
+
+---
+---
+
+# Content
 ## Syntax
 
 - All JavaScript identifiers are case sensitive.
 - `//` for single line comment and `/**/` for multiple line comment
 
+<p align="center"><a href="#index">back to index<a/></p>
+
+---
+---
 
 ## Variables
 
@@ -191,6 +203,11 @@ price = 200;
 - Since JavaScript treats a dollar sign as a letter, identifiers containing `$` are valid variable names.
 - Since JavaScript treats underscore as a letter, identifiers containing `_` are valid variable names.
 
+<p align="center"><a href="#index">back to index<a/></p>
+
+---
+---
+
 ## Order of Evaluation
 
 - left to right of assignment operator
@@ -202,6 +219,11 @@ let x = "5" + 2 + 3;
 let y = 2 + 3 + "5";
 // 55
 ```
+
+<p align="center"><a href="#index">back to index<a/></p>
+
+---
+---
 
 ## let
 
@@ -238,6 +260,12 @@ Variables declared with `let` and `const` are also hoisted but, unlike `var`, ar
 num = 7 // Throws ReferenceError exception as the variable value is uninitialized
 let num = 6; // Initialization
 ```
+
+
+<p align="center"><a href="#index">back to index<a/></p>
+
+---
+---
 
 ## const
 
@@ -278,6 +306,11 @@ car.owner = "Johnson";
 car = {type:"Volvo", model:"EX60", color:"red"};    // ERROR
 ```
 
+<p align="center"><a href="#index">back to index<a/></p>
+
+---
+---
+
 ## Common Operators
 
 - `**`          - exponentiation
@@ -293,9 +326,19 @@ car = {type:"Volvo", model:"EX60", color:"red"};    // ERROR
 
 > Bitwise Operators : View [here](https://www.w3schools.com/js/js_operators.asp)
 
+<p align="center"><a href="#index">back to index<a/></p>
+
+---
+---
+
 ## Functions
 
 Nothing here yet
+
+<p align="center"><a href="#index">back to index<a/></p>
+
+---
+---
 
 ## Objects
 
@@ -372,6 +415,11 @@ console.log(a==c)
 console.log(a===c)
 // true
 ```
+
+<p align="center"><a href="#index">back to index<a/></p>
+
+---
+---
 
 ## Strings
 
@@ -598,6 +646,11 @@ let VAT = 0.25;
 let total = `Total: ${(price * (1 + VAT)).toFixed(2)}`;
 ```
 
+<p align="center"><a href="#index">back to index<a/></p>
+
+---
+---
+
 ## Numbers
 
 - JavaScript Numbers are Always 64-bit Floating Point
@@ -798,6 +851,11 @@ parseInt("years 10");
 
 ##### parseFloat
 Spaces are allowed. Only the first number is returned
+
+<p align="center"><a href="#index">back to index<a/></p>
+
+---
+---
 
 ## Arrays
 
@@ -1368,6 +1426,11 @@ function myArrayMax(arr) {
 }
 ```
 
+<p align="center"><a href="#index">back to index<a/></p>
+
+---
+---
+
 ## Dates
 
 ```js
@@ -1399,6 +1462,11 @@ const d = new Date("October 13, 2014 11:13:00");
 
 ### Getters and Setters left
 
+<p align="center"><a href="#index">back to index<a/></p>
+
+---
+---
+
 ## Math
 
 - Unlike other objects, the Math object has no constructor.
@@ -1425,6 +1493,11 @@ function getRndInteger(min, max) {
 
 - `Math.trunc(x)` Returns the integer part of x
 - `Math.random()` returns a random number between 0 (inclusive), and 1 (exclusive)
+
+<p align="center"><a href="#index">back to index<a/></p>
+
+---
+---
 
 ## Boolean
 
@@ -1454,11 +1527,22 @@ null
 NaN
 ```
 
+<p align="center"><a href="#index">back to index<a/></p>
+
+---
+---
+
 ## Ternary
 
 ```js
 variablename = (condition) ? value1:value2 
 ```
+
+
+<p align="center"><a href="#index">back to index<a/></p>
+
+---
+---
 
 ## Switch
 
@@ -1481,6 +1565,11 @@ switch(expression) {
 
 - Switch cases use **strict** comparison (===)  .
 
+
+<p align="center"><a href="#index">back to index<a/></p>
+
+---
+---
 
 ## Loops
 
@@ -1557,6 +1646,11 @@ for (let i = 0; i < 10; i++) {
 // Here i is 5
 ```
 
+<p align="center"><a href="#index">back to index<a/></p>
+
+---
+---
+
 ## label
 The labeled statement can be used with `break` or `continue` statements. It is prefixing a statement with an identifier which you can refer to.
 
@@ -1610,11 +1704,23 @@ for (i = 0; i < 3; i++) {      //The first for statement is labeled "loop1"
 // Notice the difference with the previous continue example
 ```
 
+
+<p align="center"><a href="#index">back to index<a/></p>
+
+---
+---
+
+
 ## Iterable
 
 - Iterables are iterable objects (like Arrays).
 - Iterables can be accessed with simple and efficient code.
 - Iterables can be iterated over with `for..of` loops
+
+<p align="center"><a href="#index">back to index<a/></p>
+
+---
+---
 
 ## Sets
 
@@ -1634,6 +1740,11 @@ letters2.add("a");
 letters2.add("b");
 letters2.add("c");
 ```
+
+<p align="center"><a href="#index">back to index<a/></p>
+
+---
+---
 
 ## Maps
 
@@ -1665,6 +1776,13 @@ fruits.set("oranges", 200);
 ```
 
 
+
+<p align="center"><a href="#index">back to index<a/></p>
+
+---
+---
+
+
 ## Maps vs Objects
 
 |          |     **Object**     |  **Map** |
@@ -1674,6 +1792,12 @@ fruits.set("oranges", 200);
 | **Key Types** | Keys must be Strings (or Symbols) |    	Keys can be any datatype |
 | **Key Order** | Keys are not well ordered | Keys are ordered by insertion |
 | **Defaults** | Have default keys | 	Do not have default keys |
+
+
+<p align="center"><a href="#index">back to index<a/></p>
+
+---
+---
 
 
 ## Data Types
@@ -1702,6 +1826,12 @@ typeof null                // object
 null === undefined         // false
 null == undefined          // true
 ```
+
+<p align="center"><a href="#index">back to index<a/></p>
+
+---
+---
+
 
 ## JS Type Conversion
 
@@ -1739,6 +1869,12 @@ x = + y;      // x is a number (NaN)
 ### Booleans to Numbers
 ### Numbers to Booleans
 
+<p align="center"><a href="#index">back to index<a/></p>
+
+---
+---
+
+
 
 ## Bitwise
 
@@ -1751,6 +1887,12 @@ x = + y;      // x is a number (NaN)
 | <<   | 	Zero fill left shift	|  Shifts left by pushing zeros in from the right and let the leftmost bits fall off  |
 | >>   | 	Signed right shift	  |  Shifts right by pushing copies of the leftmost bit in from the left, and let the rightmost bits fall off  |
 | >>>  |  Zero fill right shift	|  Shifts right by pushing zeros in from the left, and let the rightmost bits fall off   |                   
+
+
+<p align="center"><a href="#index">back to index<a/></p>
+
+---
+---
 
 
 ## RegEx
@@ -1838,6 +1980,11 @@ The following example searches a string for the character "e":
 - If no match is found, it returns an empty (null) object.
 
 
+<p align="center"><a href="#index">back to index<a/></p>
+
+---
+---
+
 ## Scoping
 
 - Variables declared with `var`, `let` and `const` are quite similar when declared inside a function. They all have **Function** Scope
@@ -1856,6 +2003,13 @@ function myFunction() {
 
 - Global variables defined with the `var` keyword belong to the window object
 - Global variables defined with the `let` keyword do not belong to the window object
+
+
+<p align="center"><a href="#index">back to index<a/></p>
+
+---
+---
+
 
 ## Hoisting
 
@@ -1892,6 +2046,12 @@ console.log(a)
 var a = 5
 
 ```
+
+<p align="center"><a href="#index">back to index<a/></p>
+
+---
+---
+
 
 ## Strict Mode
 
@@ -1943,5 +2103,10 @@ function myFunction() {
 }
 myFunction();
 ```
+
+<p align="center"><a href="#index">back to index<a/></p>
+
+---
+---
 
 ## Continue from this
