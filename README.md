@@ -127,7 +127,7 @@
   - [Booleans to Numbers](#booleans-to-numbers)
   - [Numbers to Booleans](#numbers-to-booleans)
 - [Bitwise](#bitwise)
-- [Continue from Sets](#continue-from-sets)
+- [Continue from RegEx](#continue-from-regex)
 
 ## Syntax
 
@@ -1740,4 +1740,4 @@ x = + y;      // x is a number (NaN)
 | >>   | 	Signed right shift	  |  Shifts right by pushing copies of the leftmost bit in from the left, and let the rightmost bits fall off  |
 | >>>  |  Zero fill right shift	|  Shifts right by pushing zeros in from the left, and let the rightmost bits fall off   |                   
 
-## Continue from Sets
+## Continue from RegEx
