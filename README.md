@@ -117,6 +117,16 @@
 - [Sets](#sets)
 - [Maps](#maps)
 - [Maps vs Objects](#maps-vs-objects)
+- [Data Types](#data-types)
+  - [null vs undefined](#null-vs-undefined)
+- [JS Type Conversion](#js-type-conversion)
+  - [Strings to Numbers](#strings-to-numbers)
+  - [Numbers to Strings](#numbers-to-strings)
+  - [Dates to Numbers](#dates-to-numbers)
+  - [Numbers to Dates](#numbers-to-dates)
+  - [Booleans to Numbers](#booleans-to-numbers)
+  - [Numbers to Booleans](#numbers-to-booleans)
+- [Bitwise](#bitwise)
 - [Continue from Sets](#continue-from-sets)
 
 ## Syntax
@@ -1156,8 +1166,22 @@ delete fruits[0];
 
 ```js
 Array.isArray(array_name);
+
 // OR
+
 array_name instanceof Array;
+
+// OR
+
+function isArray(myArray) {
+  return myArray.constructor === Array;
+}
+
+// OR
+
+function isArray(myArray) {
+  return myArray.constructor.toString().indexOf("Array") > -1;
+}
 ```
 
 ### Converting array to string
@@ -1638,5 +1662,82 @@ fruits.set("oranges", 200);
 | **Key Types** | Keys must be Strings (or Symbols) |    	Keys can be any datatype |
 | **Key Order** | Keys are not well ordered | Keys are ordered by insertion |
 | **Defaults** | Have default keys | 	Do not have default keys |
+
+
+## Data Types
+
+```js
+typeof "John"                 // Returns "string"
+typeof 3.14                   // Returns "number"
+typeof NaN                    // Returns "number"
+typeof false                  // Returns "boolean"
+typeof [1,2,3,4]              // Returns "object"
+typeof {name:'John', age:34}  // Returns "object"
+typeof new Date()             // Returns "object"
+typeof function () {}         // Returns "function"
+typeof myCar                  // Returns "undefined" *
+typeof null                   // Returns "object"
+```
+
+### null vs undefined
+
+`undefined` and `null` are equal in value but different in type:
+
+```js
+typeof undefined           // undefined
+typeof null                // object
+
+null === undefined         // false
+null == undefined          // true
+```
+
+## JS Type Conversion
+
+### Strings to Numbers
+
+- `Number()`
+- `parseFloat()`
+- `parseInt()`
+- unary `+`
+
+```js
+Number("3.14")    // returns 3.14
+Number(" ")       // returns 0
+Number("")        // returns 0
+Number("99 88")   // returns NaN
+
+
+let y = "5";      // y is a string
+let x = + y;      // x is a number
+
+y = "John";   // y is a string
+x = + y;      // x is a number (NaN)
+```
+
+### Numbers to Strings
+
+- global method `String(number)`
+- Number method `number.toString()`
+- `toExponential()`
+- `toFixed()`
+- `toPrecision()`
+
+### Dates to Numbers
+### Numbers to Dates
+### Booleans to Numbers
+### Numbers to Booleans
+
+
+## Bitwise
+
+|   **Operator**       |     **Name**     |  **Description** |
+|----------|:-------------|:------|
+| &    | 	AND	                  |  Sets each bit to 1 if both bits are 1  |
+| |    | 	OR	                  |  Sets each bit to 1 if one of two bits is 1  |
+| ^    | 	XOR	                  |  Sets each bit to 1 if only one of two bits is 1  |
+| ~    | 	NOT	                  |  Inverts all the bits  |
+| <<   | 	Zero fill left shift	|  Shifts left by pushing zeros in from the right and let the leftmost bits fall off  |
+| >>   | 	Signed right shift	  |  Shifts right by pushing copies of the leftmost bit in from the left, and let the rightmost bits fall off  |
+| >>>  |  Zero fill right shift	|  Shifts right by pushing zeros in from the left, and let the rightmost bits fall off   |                   
 
 ## Continue from Sets
