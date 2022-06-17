@@ -1632,7 +1632,7 @@ fruits.set("oranges", 200);
 ## Maps vs Objects
 
 |          |     **Object**     |  **Map** |
-|----------|:-------------:|------:|
+|----------|:-------------|:------|
 | **Iterable** |  Not directly iterable | 	Directly iterable |
 | **Size** |    Do not have a size property   |   Have a size property |
 | **Key Types** | Keys must be Strings (or Symbols) |    	Keys can be any datatype |
