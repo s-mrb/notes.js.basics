@@ -164,10 +164,10 @@
 ### Ways to declare variable
 
 4 Ways to Declare a JavaScript Variable:
-- var
-- let
-- const
-- using nothing
+- `var`
+- `let`
+- `const`
+- using nothing (won't work in strict mode)
 
 
 using nothing eg:
@@ -198,10 +198,17 @@ price = 200;
 ### Remember
 - A variable declared without a value will have the value undefined.
 - If you re-declare a JavaScript variable declared with `var`, it will not lose its value
-  only if re-declaration is also in var.
+  only if re-declaration is also in `var`, otherwise *Syntax Error*.
 - You cannot re-declare a variable declared with `let` or `const`.
 - Since JavaScript treats a dollar sign as a letter, identifiers containing `$` are valid variable names.
 - Since JavaScript treats underscore as a letter, identifiers containing `_` are valid variable names.
+
+```js
+var a = 5
+var a
+console.log(a)
+// 5
+```
 
 <p align="center"><a href="#index">back to index<a/></p>
 
@@ -233,6 +240,13 @@ let y = 2 + 3 + "5";
 - Variables defined with `let` have Block Scope.
 
 ### Block Scope
+
+```js
+{
+  let x = 2;
+}
+// x can NOT be used here
+```
 
 ```js
 {
@@ -1988,7 +2002,7 @@ The following example searches a string for the character "e":
 ## Scoping
 
 - Variables declared with `var`, `let` and `const` are quite similar when declared inside a function. They all have **Function** Scope
-- Variables declared with var, let and const are quite similar when declared outside a block. They all have **Global** Scope
+- Variables declared with `var`, `let` and `const` are quite similar when declared outside a block. They all have **Global** Scope
 - If you assign a value to a variable that has not been declared, it will automatically become a **GLOBAL** variable.
 
 ```js
