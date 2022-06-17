@@ -127,7 +127,19 @@
   - [Booleans to Numbers](#booleans-to-numbers)
   - [Numbers to Booleans](#numbers-to-booleans)
 - [Bitwise](#bitwise)
-- [Continue from RegEx](#continue-from-regex)
+- [RegEx](#regex)
+  - [Patterns](#patterns)
+    - [Brackets](#brackets)
+    - [Metacharacters](#metacharacters)
+    - [Quantifier](#quantifier)
+  - [Modifiers](#modifiers)
+  - [Using the RegExp Object](#using-the-regexp-object)
+    - [test](#test)
+    - [exec()](#exec)
+- [Scoping](#scoping)
+- [Hoisting](#hoisting-1)
+- [Strict Mode](#strict-mode)
+- [Continue from this](#continue-from-this)
 
 ## Syntax
 
@@ -1740,4 +1752,196 @@ x = + y;      // x is a number (NaN)
 | >>   | 	Signed right shift	  |  Shifts right by pushing copies of the leftmost bit in from the left, and let the rightmost bits fall off  |
 | >>>  |  Zero fill right shift	|  Shifts right by pushing zeros in from the left, and let the rightmost bits fall off   |                   
 
-## Continue from RegEx
+
+## RegEx
+
+- A regular expression is a sequence of characters that forms a search pattern.
+- The search pattern can be used for text search and text replace operations.
+
+```js
+// Syntax
+/pattern/modifiers;
+
+// eg
+/w3schools/i;
+```
+
+In JavaScript, regular expressions are often used with the two string methods:
+- `search()`
+- `replace()`
+
+
+### Patterns
+
+#### Brackets
+
+**Brackets** are used to find a range of characters:
+
+
+
+| **Expression** |	**Description**	|
+|--------------|:-----------------|
+| `[abc]`	       |  Find any of the characters between the brackets	 |
+| `[0-9]`	       |  Find any of the digits between the brackets	 |
+| `(x|y)`	       |  	Find any of the alternatives separated with \| |
+
+
+#### Metacharacters
+
+**Metacharacters** are characters with a special meaning:
+
+| **Metacharacter** |	**Description**	|
+|--------------|:-----------------|
+| `\d`	       |  Find a digit	 |
+| `\s`	       |  Find a whitespace character	 |
+| `\b`	       |  	Find a match at the beginning of a word like this: \bWORD, or at the end of a word like this: WORD\b \| |
+| `\uxxxx` |  Find the Unicode character specified by the hexadecimal number xxxx |
+
+#### Quantifier
+
+**Quantifiers** define quantities:
+
+| **Quantifier** |	**Description**	|
+|--------------|:-----------------|
+| `n+`	       |  Matches any string that contains **at least one** n	 |
+| `n*`	       |  Matches any string that contains **zero or more** occurrences of n	 |
+| `n?`	       |  Matches any string that contains **zero or one** occurrences of n |
+
+
+
+### Modifiers
+
+| **Modifier** |	**Description**	|
+|--------------|:-----------------|
+| `i`	       |  Perform case-insensitive matching	 |
+| `g`	       |  Perform a global match (find all matches rather than stopping after the first match)	 |
+| `m`	       |  Perform multiline matching |
+
+
+### Using the RegExp Object
+
+The following example searches a string for the character "e":
+
+```js
+/e/.test("The best things in life are free!");
+/e/.exec("The best things in life are free!");
+```
+
+#### test
+- The `test()` method is a RegExp expression method.
+- It searches a string for a pattern, and **returns true or false**, depending on the result.
+
+#### exec()
+
+- The `exec()` method is a RegExp expression method.
+- It searches a string for a specified pattern, and **returns the found text** as an object.
+- If no match is found, it returns an empty (null) object.
+
+
+## Scoping
+
+- Variables declared with `var`, `let` and `const` are quite similar when declared inside a function. They all have **Function** Scope
+- Variables declared with var, let and const are quite similar when declared outside a block. They all have **Global** Scope
+- If you assign a value to a variable that has not been declared, it will automatically become a **GLOBAL** variable.
+
+```js
+myFunction();
+
+// code here can use carName
+
+function myFunction() {
+  carName = "Volvo";
+}
+```
+
+- Global variables defined with the `var` keyword belong to the window object
+- Global variables defined with the `let` keyword do not belong to the window object
+
+## Hoisting
+
+- Hoisting is JavaScript's default behavior of moving all declarations to the top of the current scope (to the top of the current script or the current function).
+- hoisting of `var/function/function*` is different than that of `let/const/class`, `let/const/class` are hoisted but they can't be used before they are declared.
+- to read complex details of hoisting - [stackoverflow](https://stackoverflow.com/questions/31219420/are-variables-declared-with-let-or-const-hoisted)
+
+```js
+// declaration i.e. var a is moved to top
+// and initialized with undefined by default
+
+console.log(a)
+// undefined
+
+a = 5 
+console.log(a)
+// 5
+
+var a 
+
+```
+
+- Initialization is not hoisted:
+
+```js
+// declaration i.e. var a is moved to top
+// and initialized with undefined by default
+
+console.log(a)
+// undefined
+// Does it make sense that a is undefined in the last example?
+// This is because only the declaration (var a), not the initialization (=5) is hoisted to the top.
+
+var a = 5
+
+```
+
+## Strict Mode
+
+- The purpose of `"use strict"` is to indicate that the code should be executed in "strict mode".
+- With strict mode, you can not, for example, use undeclared variables.
+- Deleting a variable (or object or function) is not allowed.
+- Duplicating a parameter name is not allowed.
+- Octal numeric literals are not allowed.
+- Octal escape characters are not allowed
+- The word eval cannot be used as a variable
+- The word arguments cannot be used as a variable
+- The with statement is not allowed
+- For security reasons, eval() is not allowed to create variables in the scope from which it was called
+- Writing to a read-only property is not allowed
+
+```js
+"use strict";
+const obj = {};
+Object.defineProperty(obj, "x", {value:0, writable:false});
+
+obj.x = 3.14;            // This will cause an error
+```
+
+- Declared inside a function, it has local scope (only the code inside the function is in strict mode):
+```js
+x = 3.14;       // This will not cause an error.
+myFunction();
+
+function myFunction() {
+  "use strict";
+  y = 3.14;   // This will cause an error
+}
+```
+
+- Writing to a get-only property is not allowed:
+```js
+"use strict";
+const obj = {get x() {return 0} };
+
+obj.x = 3.14;            // This will cause an error
+```
+
+- The this keyword in functions behaves differently in strict mode. The this keyword refers to the object that called the function. If the object is not specified, functions in strict mode will return undefined and functions in normal mode will return the global object (window):
+
+```js
+"use strict";
+function myFunction() {
+  alert(this); // will alert "undefined"
+}
+myFunction();
+```
+
+## Continue from this
