@@ -111,6 +111,7 @@
   - [Loops](#loops)
     - [for in](#for-in)
     - [for of](#for-of)
+    - [`for ... in` vs `for ... of`](#for--in-vs-for--of)
     - [while](#while)
     - [do while](#do-while)
     - [Scope](#scope)
@@ -143,6 +144,9 @@
   - [Scoping](#scoping)
   - [Hoisting](#hoisting-1)
   - [Strict Mode](#strict-mode)
+  - [Detailed Concepts](#detailed-concepts)
+    - [`iterables` vs `enumerables`](#iterables-vs-enumerables)
+      - [You may ask how should I remember it? - Easy!](#you-may-ask-how-should-i-remember-it---easy)
   - [Continue from this](#continue-from-this)
 
 ---
@@ -1589,6 +1593,8 @@ switch(expression) {
 
 ### for in
 
+The **`for...in` statement** iterates over all **enumerable** properties of an object that are keyed by strings (ignoring ones keyed by Symbols), including inherited enumerable properties.
+
 ```js
 for (key in object) {
   // code block to be executed
@@ -1603,7 +1609,7 @@ for (variable in array) {
 
 ### for of
 
-- The JavaScript `for of` statement loops through the values of an iterable object.
+- The JavaScript `for of` statement loops through the values of an **iterable** object.
 - It lets you loop over iterable data structures such as Arrays, Strings, Maps, NodeLists, and more:
 
 ```js
@@ -1620,6 +1626,49 @@ for (let x of cars) {
   text += x;
 }
 ```
+
+### `for ... in` vs `for ... of`
+
+I found a complete answer at [Iterators and Generators](https://www.typescriptlang.org/docs/handbook/iterators-and-generators.html) (Although it is for TypeScript, this is the same for JavaScript too)
+
+Both `for..of` and `for..in` statements iterate over lists; the values
+iterated on are different though, `for..in` returns a list of keys on
+the object being iterated, whereas `for..of` returns a list of values
+of the numeric properties of the object being iterated.
+
+Here is an example that demonstrates this distinction:
+
+```js
+let list = [4, 5, 6];
+
+    for (let i in list) {
+       console.log(i); // "0", "1", "2",
+    }
+    
+    for (let i of list) {
+       console.log(i); // "4", "5", "6"
+    }
+```
+
+Another distinction is that `for..in` operates on any object; it serves
+as a way to inspect properties on this object. `for..of` on the other
+hand, is mainly interested in values of iterable objects. Built-in
+objects like `Map` and `Set` implement `Symbol.iterator` property allowing
+access to stored values.
+
+```js
+ let pets = new Set(["Cat", "Dog", "Hamster"]);
+    pets["species"] = "mammals";
+    
+    for (let pet in pets) {
+       console.log(pet); // "species"
+    }
+    
+    for (let pet of pets) {
+        console.log(pet); // "Cat", "Dog", "Hamster"
+    }
+```
+
 
 ### while
 
@@ -2117,6 +2166,145 @@ function myFunction() {
 }
 myFunction();
 ```
+
+<p align="center"><a href="#index">back to index<a/></p>
+
+---
+---
+
+##  Detailed Concepts
+
+### `iterables` vs `enumerables`
+
+There are a few things that stand out one from another.
+
+A bit about Iterable:
+- Iterable objects are a generalization of arrays. That's a concept that allows us to make any object useable in a `for..of` the loop;
+- The iterable is an interface that specifies that an object can be accessible if it implements a method who is key is [symbol.iterator] [link][1].
+
+A bit about Enumerable:
+- It simply means that the property will show up if you iterate over the object using `for..in` loop or `Object.keys`;
+- An enumerable property in JavaScript means that a property can be viewed if it is iterated using the `for…in` loop or `Object.keys()` method. All the properties which are created by simple assignment or property initializer are enumerable by default.
+
+
+1. Enumerable [`for in`] looking at the properties that are inside of the object, not the values [only where `enumerable: true` - by default for all props];
+2. Iterable [`for of`] looking at the values;
+
+
+A bit more in-depth:
+
+> Iterator is another object that is attached to the array, and it tells other function how to access all the different values inside of it.
+there are array, string, NodeList, Sets, Maps they have built-in iterators, but the object does not have it.
+
+The object is not iterable by default, but you can implement it.
+
+So you can use 
+- `for .. of` for `[array, Map, Set, String]` to iterate over values;
+- `for .. in` for an array to iterate over a key;
+- `for .. in` for objects to  enumerate its (object's) properties;
+- looping over [NodeList][2].
+
+Please, take a look at the example either here or using a provided link for a sandbox.
+Sandbox [link][3] for the same example.
+
+```js
+let arr = ['value1', 'value2', 'value3'];
+
+let obj = {
+  propName1: 'propValue1',
+  propName2: 'propValue2',
+  propName3: 'propValue3'
+};
+
+console.log('=====================WORKING WITH ARRAYS===================');
+console.log('For Of ')
+for (const value of arr) {
+  console.log('value: ', value);
+}
+
+console.log('For In');
+for (const key in arr) {
+  console.log('key: ', key, ' value: ', arr[key]);
+}
+
+console.log('=====================WORKING WITH OBJECTS===================');
+console.log('For In:');
+for (const prop in obj) {
+  console.log('prop: ', prop, 'value: ', obj[prop]);
+}
+
+Object.defineProperty(obj, "definedPropEnFalse", {
+  value: 'value of definedPropEnFalse',
+  enumerable: false,
+});
+
+Object.defineProperty(obj, "definedPropEnTrue", {
+  value: 'value of definedPropEnTrue',
+  enumerable: true,
+});
+
+console.log('For In for Objects with enumerables:');
+for (const prop in obj) {
+  console.log('prop: ', prop, 'value: ', obj[prop]);
+}
+
+console.log('For In for Objects with Object.keys and forEach:');
+Object.keys(obj).forEach(e => console.log(`key=${e}  value=${obj[e]}`));
+
+
+console.log('=====================WORKING WITH STRINGS===================');
+let str = "Go Over A String"
+console.log('Using For Of for String:');
+for (const char of str) {
+  console.log(char);
+}
+
+
+console.log('=====================WORKING WITH Sets===================');
+console.log("Looping over a Set");
+let testSet = new Set();
+testSet.add('Hello');
+testSet.add('Hope');
+testSet.add('You are getting it xD');
+
+for (const setItem of testSet) {
+  console.log(setItem);
+}
+
+
+console.log('=====================WORKING WITH Maps===================');
+console.log('Iterate over Map using For of')
+var myMap = new Map();
+myMap.set("0", "foo");
+myMap.set(1, "bar");
+myMap.set({}, "baz");
+
+for (const [key, value] of myMap.entries()) {
+  console.log(key, value);
+}
+```
+___
+#### You may ask how should I remember it? - Easy!
+
+A mnemonic: 
+- '**o**'f -> not '**o**'bjects; 
+- '**i**'n -> not '**i**'terables.
+
+Another mnemonic:
+- `for..in..keys` === **foreign keys** === use `for...in` for keys;
+- `for...of` for **values**.
+
+`in` gives you index.
+
+Taken from [this post's comment](https://stackoverflow.com/a/29286412/6901693)
+___
+
+If an object isn’t technically an array but represents a collection (list, set) of something, then `for..of` is a great syntax to loop over it.
+
+
+  [1]: https://towardsdatascience.com/javascript-es6-iterables-and-iterators-de18b54f4d4
+  [2]: https://stackoverflow.com/questions/56990500/javascript-iterate-through-nodelist
+  [3]: https://jsfiddle.net/UtmostCreator/7wp4jLon/
 
 <p align="center"><a href="#index">back to index<a/></p>
 
