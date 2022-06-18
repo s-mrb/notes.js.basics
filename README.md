@@ -146,7 +146,6 @@
   - [Strict Mode](#strict-mode)
   - [Detailed Concepts](#detailed-concepts)
     - [`iterables` vs `enumerables`](#iterables-vs-enumerables)
-      - [You may ask how should I remember it? - Easy!](#you-may-ask-how-should-i-remember-it---easy)
   - [Continue from this](#continue-from-this)
 
 ---
@@ -2284,7 +2283,8 @@ for (const [key, value] of myMap.entries()) {
 }
 ```
 ___
-#### You may ask how should I remember it? - Easy!
+
+**You may ask how should I remember it? - Easy!**
 
 A mnemonic: 
 - '**o**'f -> not '**o**'bjects; 
