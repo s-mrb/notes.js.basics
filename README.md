@@ -3,6 +3,7 @@
 - [Index](#index)
 - [Content](#content)
   - [Syntax](#syntax)
+  - [Data Types](#data-types)
   - [Variables](#variables)
     - [Ways to declare variable](#ways-to-declare-variable)
     - [When to Use JavaScript var?](#when-to-use-javascript-var)
@@ -14,8 +15,13 @@
     - [Hoisting](#hoisting)
   - [const](#const)
     - [Constant Objects and Arrays](#constant-objects-and-arrays)
-  - [Common Operators](#common-operators)
+  - [Operators](#operators)
+    - [Commone ones](#commone-ones)
+    - [`in`](#in)
+    - [`delete`](#delete)
   - [Functions](#functions)
+    - [The arguments object](#the-arguments-object)
+    - [`new` operator](#new-operator)
   - [Objects](#objects)
     - [What is this?](#what-is-this)
     - [Don't use object where not needed](#dont-use-object-where-not-needed)
@@ -57,6 +63,8 @@
     - [Change base](#change-base)
     - [Numbers as objects](#numbers-as-objects)
     - [Methods](#methods)
+      - [Number.isInteger()](#numberisinteger)
+      - [Number.isFinite()](#numberisfinite)
       - [toString()](#tostring)
       - [toFixed()](#tofixed)
       - [toPrecision()](#toprecision)
@@ -106,6 +114,7 @@
     - [Some Methods](#some-methods)
   - [Boolean](#boolean)
   - [Ternary](#ternary)
+  - [Unary](#unary)
   - [Switch](#switch)
     - [Strict Comparison](#strict-comparison)
   - [Loops](#loops)
@@ -122,7 +131,7 @@
   - [Sets](#sets)
   - [Maps](#maps)
   - [Maps vs Objects](#maps-vs-objects)
-  - [Data Types](#data-types)
+  - [Data Types](#data-types-1)
     - [null vs undefined](#null-vs-undefined)
   - [JS Type Conversion](#js-type-conversion)
     - [Strings to Numbers](#strings-to-numbers)
@@ -144,9 +153,15 @@
   - [Scoping](#scoping)
   - [Hoisting](#hoisting-1)
   - [Strict Mode](#strict-mode)
+  - [Object](#object)
+    - [`Object.assign()`](#objectassign)
   - [Detailed Concepts](#detailed-concepts)
     - [`iterables` vs `enumerables`](#iterables-vs-enumerables)
-  - [Continue from this](#continue-from-this)
+  - [Classes](#classes)
+  - [Statements and Declarations](#statements-and-declarations)
+    - [`with`](#with)
+  - [Review once](#review-once)
+  - [Continue from `this`](#continue-from-this)
 
 ---
 ---
@@ -156,6 +171,26 @@
 
 - All JavaScript identifiers are case sensitive.
 - `//` for single line comment and `/**/` for multiple line comment
+
+<p align="center"><a href="#index">back to index<a/></p>
+
+---
+---
+
+## Data Types
+
+The set of types in the JavaScript language consists of `primitive` values and `objects`.
+
+- Primitive values (immutable datum represented directly at the lowest level of the language)
+  - Boolean type
+  - Null type
+  - Undefined type
+  - Number type
+  - BigInt type
+  - String type
+  - Symbol type
+- Objects (collections of properties)
+
 
 <p align="center"><a href="#index">back to index<a/></p>
 
@@ -328,7 +363,9 @@ car = {type:"Volvo", model:"EX60", color:"red"};    // ERROR
 ---
 ---
 
-## Common Operators
+## Operators
+
+### Commone ones
 
 - `**`          - exponentiation
 - `==`          - equal to
@@ -343,6 +380,75 @@ car = {type:"Volvo", model:"EX60", color:"red"};    // ERROR
 
 > Bitwise Operators : View [here](https://www.w3schools.com/js/js_operators.asp)
 
+### `in`
+- The **`in` operator** returns `true` if the specified property is in the specified object or its prototype chain.
+
+```js
+// Arrays
+let trees = ['redwood', 'bay', 'cedar', 'oak', 'maple']
+0 in trees        // returns true
+3 in trees        // returns true
+6 in trees        // returns false
+'bay' in trees    // returns false (you must specify the index number, not the value at that index)
+'length' in trees // returns true (length is an Array property)
+Symbol.iterator in trees // returns true (arrays are iterable, works only in ES2015+)
+
+// Predefined objects
+'PI' in Math          // returns true
+
+// Custom objects
+let mycar = {make: 'Honda', model: 'Accord', year: 1998}
+'make' in mycar  // returns true
+'model' in mycar // returns true
+```
+
+### `delete`
+
+```js
+// Creates the property adminName on the global scope.
+adminName = 'xyz';
+
+// Creates the property empCount on the global scope.
+// Since we are using var, this is marked as non-configurable. The same is true of let and const.
+var empCount = 43;
+
+EmployeeDetails = {
+  name: 'xyz',
+  age: 5,
+  designation: 'Developer'
+};
+
+// adminName is a property of the global scope.
+// It can be deleted since it is created without var,
+// and is therefore configurable.
+delete adminName;       // returns true
+
+// On the contrary, empCount is not configurable
+// since var was used.
+delete empCount;       // returns false
+
+// delete can be used to remove properties from objects.
+delete EmployeeDetails.name; // returns true
+
+// Even when the property does not exist, delete returns "true".
+delete EmployeeDetails.salary; // returns true
+
+// delete does not affect built-in static properties.
+delete Math.PI; // returns false
+
+// EmployeeDetails is a property of the global scope.
+// Since it was defined without "var", it is marked configurable.
+delete EmployeeDetails;   // returns true
+
+function f() {
+  var z = 44;
+
+  // delete doesn't affect local variable names
+  delete z;     // returns false
+}
+
+```
+
 <p align="center"><a href="#index">back to index<a/></p>
 
 ---
@@ -350,7 +456,40 @@ car = {type:"Volvo", model:"EX60", color:"red"};    // ERROR
 
 ## Functions
 
-Nothing here yet
+### The arguments object
+
+- `arguments` is an `Array-like` object accessible inside functions that contains the values of the arguments passed to that function.
+
+```js
+function func1(a, b) {
+  console.log(arguments[0]);
+  // expected output: 1
+
+  console.log(arguments.length);
+  // expected output: 3
+
+  console.log(arguments);
+  // [Arguments] { '0': 1, '1': 2, '2': 3 }
+}
+
+func1(1, 2, 3);
+```
+
+### `new` operator
+
+```js
+let res = (new Function("param_a","param_b","return param_a + param_b"))(1, 4)
+console.log(res)
+```
+
+```js
+const func = function (a) {
+  return a;
+};
+let result = new func(10);
+console.log(result);
+// func {}
+```
 
 <p align="center"><a href="#index">back to index<a/></p>
 
@@ -684,7 +823,6 @@ let y = 123e-5;   // 0.00123
 ### Integer Precision
 
 
-
 ```js
 let y = 9999999999999999;  
 // y will be 10000000000000000
@@ -756,6 +894,46 @@ let y = new Number(500);
 ```
 
 ### Methods
+
+#### Number.isInteger()
+- If the target value is an integer, return true, otherwise return false
+- If the value is NaN or Infinity, return false
+- The method will also return true for floating point numbers that can be represented as integer
+
+```js
+Number.isInteger(0);         // true
+Number.isInteger(1);         // true
+Number.isInteger(-100000);   // true
+Number.isInteger(99999999999999999999999); // true
+
+Number.isInteger(0.1);       // false
+Number.isInteger(Math.PI);   // false
+
+Number.isInteger(NaN);       // false
+Number.isInteger(Infinity);  // false
+Number.isInteger(-Infinity); // false
+Number.isInteger('10');      // false
+Number.isInteger(true);      // false
+Number.isInteger(false);     // false
+Number.isInteger([1]);       // false
+
+Number.isInteger(5.0);       // true
+Number.isInteger(5.000000000000001); // false
+Number.isInteger(5.0000000000000001); // true, because of loss of precision
+Number.isInteger(4500000000000000.1); // true, because of loss of precision
+
+
+```
+
+#### Number.isFinite()
+
+```js
+console.log(isFinite("12"))
+// true
+
+console.log(Number.isFinite("12"))
+// false
+```
 
 #### toString()
 #### toFixed()
@@ -1188,7 +1366,7 @@ fruits.includes("Mango"); // is true
 
 ### Adding new elements
 
-- `push` add at end
+- `push` add at end, returns new length of array
 - `indexing` by length add at end
 - `unshift` add at start and return new array length
 - `splice` method changes the contents of an array by removing or replacing existing elements and/or adding new elements in place
@@ -1555,6 +1733,21 @@ NaN
 variablename = (condition) ? value1:value2 
 ```
 
+
+<p align="center"><a href="#index">back to index<a/></p>
+
+---
+---
+
+
+## Unary
+
+```js
+var num1 = 23
+var num2 = num1++
+console.log(num2)
+// 23
+```
 
 <p align="center"><a href="#index">back to index<a/></p>
 
@@ -1951,6 +2144,9 @@ x = + y;      // x is a number (NaN)
 | >>>  |  Zero fill right shift	|  Shifts right by pushing zeros in from the left, and let the rightmost bits fall off   |                   
 
 
+> Bitwise shifting any number **x** to the left by **y** bits yield **x\*(2\*\*y)**
+> Bitwise shifting any number **x** to the right by **y** bits yield **x/(2\*\*y)**
+
 <p align="center"><a href="#index">back to index<a/></p>
 
 ---
@@ -2171,6 +2367,31 @@ myFunction();
 ---
 ---
 
+## Object
+
+### `Object.assign()`
+
+- The `Object.assign()` method copies all `enumerable` `own properties` from one or more source objects to a target object.
+- returns the modified target object
+
+```js
+const target = { a: 1, b: 2 };
+const source = { b: 4, c: 5 };
+
+const returnedTarget = Object.assign(target, source);
+
+console.log(target);
+// expected output: Object { a: 1, b: 4, c: 5 }
+
+console.log(returnedTarget);
+// expected output: Object { a: 1, b: 4, c: 5 }
+```
+
+<p align="center"><a href="#index">back to index<a/></p>
+
+---
+---
+
 ##  Detailed Concepts
 
 ### `iterables` vs `enumerables`
@@ -2306,9 +2527,250 @@ If an object isn’t technically an array but represents a collection (list, set
   [2]: https://stackoverflow.com/questions/56990500/javascript-iterate-through-nodelist
   [3]: https://jsfiddle.net/UtmostCreator/7wp4jLon/
 
+
+
 <p align="center"><a href="#index">back to index<a/></p>
 
 ---
 ---
 
-## Continue from this
+
+## Classes
+
+- Classes are in fact **special functions** 
+- Just as you can define function expressions and function declarations, the class syntax has two components: class expressions and class declarations
+
+**NOTE:**
+```js
+// class
+class A {
+  constructor() {
+    this.foo = 42;
+  }
+
+  bar() {
+    console.log(this.foo);
+  }
+}
+
+
+console.log(typeof A)
+// function
+
+// WHY?
+// see below
+
+// constructor function
+function A() {
+  this.foo = 42;
+}
+
+A.prototype.bar = function() {
+  console.log(this.foo);
+}
+```
+
+<p align="center"><a href="#index">back to index<a/></p>
+
+---
+---
+
+
+## Statements and Declarations
+
+### `with`
+
+The **with statement** extends the scope chain for a statement.
+
+```js
+with (expression)
+  statement
+
+```
+
+- `expression`
+  - Adds the given expression to the scope chain used when evaluating the statement. 
+  - The parentheses around the expression are required.
+
+- `statement`
+  - Any statement. To execute multiple statements, use a block statement ({ ... }) to group those statements.
+
+
+**Example**
+
+```js
+let a, x, y;
+const r = 10;
+
+with (Math) {
+  a = PI * r * r;
+  x = r * cos(PI);
+  y = r * sin(PI / 2);
+}
+```
+
+<p align="center"><a href="#index">back to index<a/></p>
+
+---
+---
+
+## Review once
+
+```js
+console.log(typeof Object)
+// function
+
+
+console.log([1,2].unshift(5))
+// 3
+
+
+console.log([1,2,3,4].splice(1,2,8))
+// [2,3]
+
+
+console.log(1/0)
+// Infinity
+
+
+const global_var = "Global";
+const func = function () {
+  return this.global_var;
+};
+const obj = {
+  global_var: "Local",
+  func: func,
+};
+console.log(obj.func());
+// Local
+// WHY?
+// Prototype Chain
+
+
+
+const arr = [2,4,66]
+let r = 0
+for (const val in arr){
+  r += +val
+}
+console.log(r)
+// 3
+// unary just try to convert operand to number
+
+
+
+const key = "dynamic_key"
+const obj = {
+  [key]:1
+}
+console.log(Object.keys(obj))
+// [ 'dynamic_key' ]
+
+
+
+console.log(22 && 33)
+// 33
+
+console.log(~~(12.34))
+// 12
+// WHY?
+// Bitwise operators implicitly converts their operands to signed 32-bit integers 
+
+console.log(!null)
+// true
+
+console.log(true+true)
+// 2
+
+console.log([1,2,3].push(10))
+// 4
+
+console.log(isFinite("12"))
+// true
+
+console.log(Number.isFinite("12"))
+// false
+
+console.log(1 in [9,8,7])
+// true
+
+let arr1 = [1,2,3,4,5]
+let arr2 = arr1.reverse()
+console.log(arr1===arr2)
+// true
+
+let arr1 = [1,2]
+arr1.length = 0
+console.log(arr1)
+// []
+
+
+const arr = [1,2,3,4,5]
+const [a, ...b] = arr
+console.log(b)
+// [2,3,4,5]
+
+
+console.log(-0===+0)
+// true
+console.log(NaN===NaN)
+// false
+console.log(Object.is(-0,+0))
+// false
+console.log(Object.is(NaN,NaN))
+// true
+
+
+let obj = {a:1}
+const temp = obj
+temp = null
+// throws error, assignment to const var
+
+
+let obj = { a: 1 };
+let temp = obj;
+console.log(temp);
+// { a: 1 }
+temp = null;
+console.log(temp);
+// null
+console.log(obj);
+// { a: 1 }
+
+
+console.log((()=>{return})())
+// undefined
+
+console.log([1,2]==[1,2])
+// false
+
+// ERROR below
+let name = 15
+{name} = {name:2}
+console.log(name)
+
+// ERROR below
+let name = 15;
+{name} = {name:2}
+console.log(name)
+
+// No ERROR
+let name = 15;
+({name} = {name:2})
+console.log(name)
+// 2
+
+console.log(Number.MIN_VALUE < 0)
+// false
+
+
+console.log()
+
+```
+
+<p align="center"><a href="#index">back to index<a/></p>
+
+---
+---
+
+## Continue from `this`
