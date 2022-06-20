@@ -155,6 +155,7 @@
   - [Strict Mode](#strict-mode)
   - [Object](#object)
     - [`Object.assign()`](#objectassign)
+    - [`Object.hasOwnProperty()`](#objecthasownproperty)
   - [Detailed Concepts](#detailed-concepts)
     - [`iterables` vs `enumerables`](#iterables-vs-enumerables)
   - [Classes](#classes)
@@ -2385,6 +2386,26 @@ console.log(target);
 
 console.log(returnedTarget);
 // expected output: Object { a: 1, b: 4, c: 5 }
+```
+
+### `Object.hasOwnProperty()`
+
+- The `hasOwnProperty()` method returns a boolean indicating whether the object has the specified property as its own property (as opposed to inheriting it).
+
+```js
+let example = {};
+example.prop = 'exists';
+
+// `hasOwnProperty` will only return true for direct properties:
+example.hasOwnProperty('prop');             // returns true
+example.hasOwnProperty('toString');         // returns false
+example.hasOwnProperty('hasOwnProperty');   // returns false
+
+// The `in` operator will return true for direct or inherited properties:
+'prop' in example;                          // returns true
+'toString' in example;                      // returns true
+'hasOwnProperty' in example;                // returns true
+
 ```
 
 <p align="center"><a href="#index">back to index<a/></p>
