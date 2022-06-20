@@ -2638,6 +2638,19 @@ with (Math) {
 ## Review once
 
 ```js
+console.log(any_number > undefined)
+// false
+
+
+console.log(any_number < undefined)
+// false
+
+
+
+console.log(any_number == undefined)
+// false
+
+
 console.log(typeof Object)
 // function
 
