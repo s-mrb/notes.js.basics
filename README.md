@@ -3,6 +3,7 @@
 - [Index](#index)
 - [Content](#content)
   - [Basic](#basic)
+    - [Deepcopy objects](#deepcopy-objects)
     - [Parameter vs Argument](#parameter-vs-argument)
     - [Immutable](#immutable)
     - [What is Scope](#what-is-scope)
@@ -47,11 +48,11 @@
     - [String to Array](#string-to-array)
       - [split](#split)
     - [String Search](#string-search)
-      - [`indexOf(str, start_position)`](#indexofstr-start_position)
-      - [`lastIndexOf(str, start_position)`](#lastindexofstr-start_position)
+      - [`indexOf(searchElement, fromIndex)`](#indexofsearchelement-fromindex)
+      - [`lastIndexOf(searchElement, fromIndex)`](#lastindexofsearchelement-fromindex)
       - [`search(str|regex)`](#searchstrregex)
       - [`match(regex)`](#matchregex)
-      - [`includes(searchvalue, start)`](#includessearchvalue-start)
+      - [`includes(searchElement, fromIndex)`](#includessearchelement-fromindex)
       - [`startsWith(searchvalue, start)`](#startswithsearchvalue-start)
       - [`endsWith(searchvalue, length)`](#endswithsearchvalue-length)
     - [Template Literals](#template-literals)
@@ -162,6 +163,10 @@
     - [`Object.assign()`](#objectassign)
     - [`Object.hasOwnProperty()`](#objecthasownproperty)
   - [Detailed/Subtle Concepts](#detailedsubtle-concepts)
+    - [Number vs parseInt](#number-vs-parseint)
+    - [toFixed vs toPrecision](#tofixed-vs-toprecision)
+    - [[] vs charAt](#-vs-charat)
+    - [Enumerable\Configurable\Writable](#enumerableconfigurablewritable)
     - [`iterables` vs `enumerables`](#iterables-vs-enumerables)
     - [Are variables declared with let or const hoisted?](#are-variables-declared-with-let-or-const-hoisted)
   - [Classes](#classes)
@@ -181,6 +186,28 @@
 ---
 
 ## Basic
+
+### Deepcopy objects
+
+```js
+const person = {
+    firstName: 'John',
+    lastName: 'Doe'
+};
+
+
+// using spread ...
+let p1 = {
+    ...person
+};
+
+// using  Object.assign() method
+let p2 = Object.assign({}, person);
+
+// using JSON
+let p3 = JSON.parse(JSON.stringify(person));
+
+```
 
 ### Parameter vs Argument
 A parameter is a variable in a function definition. It is a placeholder and hence does not have a concrete value. An argument is a value passed during function invocation. In a way, arguments fill in the place the parameters have held for them.
@@ -762,11 +789,17 @@ There are 3 methods for extracting string characters:
 
 JavaScript Search Methods
 
-#### `indexOf(str, start_position)`
+#### `indexOf(searchElement, fromIndex)`
+
+```js
+indexOf(searchElement)
+indexOf(searchElement, fromIndex)
+
+```
 
 - returns -1 if string not found
 
-#### `lastIndexOf(str, start_position)`
+#### `lastIndexOf(searchElement, fromIndex)`
 
 - The `lastIndexOf()` methods searches backwards (from the end to the beginning), meaning: if the second parameter is 15, the search starts at position 15, and searches to the beginning of the string.
 - returns -1 if string not found
@@ -784,7 +817,7 @@ str.search("locate");
 
 #### `match(regex)`
 
-The match() method searches a string for a match against a regular expression, and returns the matches, as an Array object.
+The match() method searches a string for a match against a regular expression, and **returns the matches, as an Array object**.
 
 ```js
 let text = "The rain in SPAIN stays mainly in the plain";
@@ -792,7 +825,13 @@ console.log(text.match(/ain/g))
 // [ 'ain', 'ain', 'ain' ]
 ```
 
-#### `includes(searchvalue, start)`
+#### `includes(searchElement, fromIndex)`
+
+```js
+
+includes(searchElement)
+includes(searchElement, fromIndex)
+```
 
 - returns true if a string contains a specified value.
 
@@ -971,7 +1010,7 @@ console.log(Number.isFinite("12"))
 #### toString()
 #### toFixed()
 
-**`toFixed()`** returns a string representation of numObj that does not use exponential notation and has exactly `digits` digits after the decimal place
+**`toFixed(digits)`** returns a string representation of numObj that does not use exponential notation and has exactly `digits` digits after the decimal place
 
 ```js
 let numObj = 12345.6789
@@ -2446,6 +2485,44 @@ example.hasOwnProperty('hasOwnProperty');   // returns false
 ---
 
 ##  Detailed/Subtle Concepts
+
+
+
+### Number vs parseInt
+
+```js
+Number("10 33");
+// NaN
+
+parseInt("10 33");
+// 10
+```
+
+### toFixed vs toPrecision
+
+```js
+let numObj = 12345.6789
+numObj.toFixed()       // Returns '12346': note rounding, no fractional part
+numObj.toFixed(1)      // Returns '12345.7': note rounding
+
+let numObj = 5.123456
+
+console.log(numObj.toPrecision())    // logs '5.123456'
+console.log(numObj.toPrecision(5))   // logs '5.1235'
+
+```
+### [] vs charAt
+
+If no character is found, `[]` returns `undefined`, while `charAt()` returns an **empty string**.
+
+### Enumerable\Configurable\Writable
+
+
+
+- **Writable:** If false, the value of the property can not be changed.
+- **Configurable:** If false, any attempts to delete the property or change its attributes (Writable, Configurable, or Enumerable) will fail.
+- **Enumerable:** If true, the property will be iterated over when a user does for (var prop in obj){} (or similar).
+
 
 ### `iterables` vs `enumerables`
 
