@@ -2,6 +2,11 @@
 
 - [Index](#index)
 - [Content](#content)
+  - [Basic](#basic)
+    - [Parameter vs Argument](#parameter-vs-argument)
+    - [Immutable](#immutable)
+    - [What is Scope](#what-is-scope)
+      - [Types](#types)
   - [Syntax](#syntax)
   - [Data Types](#data-types)
   - [Variables](#variables)
@@ -156,8 +161,9 @@
   - [Object](#object)
     - [`Object.assign()`](#objectassign)
     - [`Object.hasOwnProperty()`](#objecthasownproperty)
-  - [Detailed Concepts](#detailed-concepts)
+  - [Detailed/Subtle Concepts](#detailedsubtle-concepts)
     - [`iterables` vs `enumerables`](#iterables-vs-enumerables)
+    - [Are variables declared with let or const hoisted?](#are-variables-declared-with-let-or-const-hoisted)
   - [Classes](#classes)
   - [Statements and Declarations](#statements-and-declarations)
     - [`with`](#with)
@@ -168,6 +174,31 @@
 ---
 
 # Content
+
+<p align="center"><a href="#index">back to index<a/></p>
+
+---
+---
+
+## Basic
+
+### Parameter vs Argument
+A parameter is a variable in a function definition. It is a placeholder and hence does not have a concrete value. An argument is a value passed during function invocation. In a way, arguments fill in the place the parameters have held for them.
+
+### Immutable
+can not be mutated/changed
+
+### What is Scope
+Scope is the area of the program where an item (be it variable, constant, function, etc.) that has an identifier name is recognized
+
+#### Types
+
+- Lexical/Static
+  - global
+  - local
+    - function
+    - block
+
 ## Syntax
 
 - All JavaScript identifiers are case sensitive.
@@ -326,6 +357,7 @@ let num = 6; // Initialization
 - Variables defined with `const` cannot be Redeclared.
 - Variables defined with `const` cannot be Reassigned.
 - Variables defined with `const` have Block Scope.
+- Objects defined with `const` can be mutated but can not be reassigned
 
 ### Constant Objects and Arrays
 
@@ -2413,7 +2445,7 @@ example.hasOwnProperty('hasOwnProperty');   // returns false
 ---
 ---
 
-##  Detailed Concepts
+##  Detailed/Subtle Concepts
 
 ### `iterables` vs `enumerables`
 
@@ -2548,6 +2580,13 @@ If an object isn’t technically an array but represents a collection (list, set
   [2]: https://stackoverflow.com/questions/56990500/javascript-iterate-through-nodelist
   [3]: https://jsfiddle.net/UtmostCreator/7wp4jLon/
 
+
+### Are variables declared with let or const hoisted?
+
+- let and const declarations define variables that are scoped to the running execution context's LexicalEnvironment.
+- The variables are created when their containing Environment Record is instantiated but may not be accessed in any way until the variable's LexicalBinding is evaluated.
+- A variable defined by a LexicalBinding with an Initializer is assigned the value of its Initializer's AssignmentExpression when the LexicalBinding is evaluated, not when the variable is created.
+- If a LexicalBinding in a let declaration does not have an Initializer the variable is assigned the value undefined when the LexicalBinding is evaluated.
 
 
 <p align="center"><a href="#index">back to index<a/></p>
