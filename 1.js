@@ -1,2 +1,8 @@
-let ar = new Array(2)
-console.log(ar)
+var name = "name"
+
+const t = function f() {
+    console.log(this.name)
+}
+
+t()
+// undefined

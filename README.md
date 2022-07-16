@@ -210,6 +210,7 @@ let p3 = JSON.parse(JSON.stringify(person));
 ```
 
 ### Parameter vs Argument
+
 A parameter is a variable in a function definition. It is a placeholder and hence does not have a concrete value. An argument is a value passed during function invocation. In a way, arguments fill in the place the parameters have held for them.
 
 ### Immutable
@@ -225,6 +226,8 @@ Scope is the area of the program where an item (be it variable, constant, functi
   - local
     - function
     - block
+- Dynamic Scoping
+  - Some older languages use dynamic scoping. Using this scoping rule, we first look for a local definition of a variable. If it isn't found, we look up the calling stack for a definition. Dynamic scoping was the norm in versions of Lisp before Common Lisp, and is also used in some older, interpreted languages such as SNOBOL and APL.
 
 ## Syntax
 
@@ -246,8 +249,9 @@ The set of types in the JavaScript language consists of `primitive` values and `
   - Undefined type
   - Number type
   - BigInt type
+    - aims to enable JavaScript programmers to represent integer values larger than the range supported by the Number data type
   - String type
-  - Symbol type
+  - [Symbol type](https://www.youtube.com/watch?v=4J5hnOCj69w&ab_channel=ColtSteele)
 - Objects (collections of properties)
 
 
@@ -370,6 +374,18 @@ Variables declared with `let` and `const` are also hoisted but, unlike `var`, ar
 ```js
 num = 7 // Throws ReferenceError exception as the variable value is uninitialized
 let num = 6; // Initialization
+```
+
+
+**Hoisting does initialization with default value always:**
+
+```js
+
+console.log(num)
+// undefined
+num = 7 // Throws ReferenceError exception as the variable value is uninitialized
+var num = 6; // Initialization
+
 ```
 
 
@@ -591,12 +607,26 @@ In JavaScript, the `this` keyword refers to an **object**.
 
 The `this` keyword refers to different objects depending on how it is used:
 
-- In an object method, `this` refers to the **object**.
-- Alone, `this` refers to the **global object**.
-- In a function, `this` refers to the **global object**.
-- In a function, in strict mode, `this` is undefined.
-- In an event, `this` refers to the **element** that received the event.
-- Methods like `call()`, `apply()`, and `bind()` can refer `this` to **any object**.
+1. In an object method, `this` refers to the **object**.
+1. Alone, `this` refers to the **global object**.
+1. In a function, `this` refers to the **global object**.
+1. In a function, in strict mode, `this` is undefined.
+1. In an event, `this` refers to the **element** that received the event.
+1. Methods like `call()`, `apply()`, and `bind()` can refer `this` to **any object**.
+
+**Refering to point 3:**
+
+```js
+var name = "name"
+
+const t = function f() {
+    console.log(this.name)
+}
+
+t()
+// undefined
+```
+
 
 
 ### Don't use object where not needed
@@ -728,6 +758,12 @@ let newText = text.replace(/Microsoft/g, "W3Schools");
 
 ```js
 let newText = text.replace(/MICROSOFT/i, "W3Schools");
+```
+
+**case insensitive and all occurance**
+
+```js
+let newText = text.replace(/MicrOsoft/gi, "W3Schools");
 ```
 
 ### Case conversion
@@ -2255,7 +2291,7 @@ In JavaScript, regular expressions are often used with the two string methods:
 |--------------|:-----------------|
 | `[abc]`	       |  Find any of the characters between the brackets	 |
 | `[0-9]`	       |  Find any of the digits between the brackets	 |
-| `(x|y)`	       |  	Find any of the alternatives separated with \| |
+| `(x\|y)`	       |  	Find any of the alternatives separated with \| |
 
 
 #### Metacharacters
